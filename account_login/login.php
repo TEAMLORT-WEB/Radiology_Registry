@@ -2,10 +2,14 @@
 
 session_start();
 
+
+            //get the input
+                
 $username = $_POST['login'];
 $password = $_POST['password'];
-$class = $_POST['select'];
-echo "$username";
+
+
+
 
 if($username&&$password)
 {
@@ -30,7 +34,7 @@ if($username&&$password)
            header( "refresh:5; url=/home.php" ); 
 
            $_SESSION['username']=$dbusername;
-           $_SESSION['usertype']=$class;
+           $_SESSION['class']=$dbtype;
 
        }
        else
