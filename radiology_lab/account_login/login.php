@@ -4,7 +4,6 @@ session_start();
 
 $username = $_POST['login'];
 $password = $_POST['password'];
-$class = $_POST['select'];
 echo "$username";
 
 if($username&&$password)
@@ -21,6 +20,7 @@ if($username&&$password)
        {
            $dbusername = $row['user_name'];
            $dbpassword = $row['password'];
+           $dbid = $row['person_id'];
            $dbtype=$row['class'];
        }
        if($username==$dbusername&&$password==$dbpassword)
@@ -30,8 +30,9 @@ if($username&&$password)
            header( "refresh:5; url=/home.php" ); 
 
            $_SESSION['username']=$dbusername;
-           $_SESSION['usertype']=$class;
-
+           $_SESSION['loginclass']=$dbclass;
+           $_SESSION['id']=$dbid;
+           $_SESSION['TYPE']=$dbtype;
        }
        else
            echo" Incorrect password";
