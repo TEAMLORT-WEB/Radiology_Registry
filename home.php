@@ -50,7 +50,7 @@ session_start();
                                 echo "<p></p>";***/
                                 echo '<div class="tile" data-click="transform">
                                         <div class ="tile-content icon bg-lightBlue fg-white">
-                                            <i class = "icon-search"></i>
+                                            <a href ="search.php"><i class = "icon-search"></i></a>
                                                 
                                         </div>
                                         <div class="tile-status"><span class ="name">Search</span></div>
@@ -64,8 +64,6 @@ session_start();
                                          </div>
                                          <div class="tile-status"><span class ="name">Upload</span></div>
                                        </div>';
-                                      
-                                      
                                       
                                       
                                 echo '<div class="tile">
