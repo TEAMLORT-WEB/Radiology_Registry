@@ -57,9 +57,9 @@ session_start();
                                       </div>';
                                       
                                       
-                                 echo '<div class="tile" data-click="transform">
+                                 echo '<div class="tile">
                                          <div class ="tile-content icon bg-darkGreen fg-white">
-                                             <i class = "icon-file"></i>
+                                             <a href ="upload.php"><i class = "icon-file"></i></a>
                                                  
                                          </div>
                                          <div class="tile-status"><span class ="name">Upload</span></div>
