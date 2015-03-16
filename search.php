@@ -20,7 +20,7 @@
                        <div class ="span4 offset2">
                            <a href="index.html"><img src="Assets/AHS_Logo.jpg" alt="Alberta Health Services" height="100px" width ="auto"></a>
                            <form name="search" method="post" action="search_backend.php">
-                               <label>Login</label>
+                               <label>Search</label>
                                <div class="input-control text">
                                    <input type="text" name="search_term" />
                                    <button class="btn-clear"></button>
