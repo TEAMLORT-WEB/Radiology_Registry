@@ -25,9 +25,6 @@ if($username&&$password)
    $patient = mysqli_query($mysqli,"select * from users u, family_doctor fd where u.user_name = '$username' and u.persion_id = fd.patient_id");
    $id = mysqli_fetch_assoc($doctor);
    $personid = $id['person_id'];
-   $doctor_query = mysqli_query($mysqli,"select doctor_id from family_doctor where doctor_id ='$personid'");
-   $doctor_check = mysqli_fetch_assoc($doctor_query);
-   $doctor_id = $doctor_check['doctor_id'];
    $numrows = mysqli_num_rows($query);
    //$doctor_result = mysqli_num_rows($doctor);
    //$patient = mysqli_num_rows($patient);
@@ -43,9 +40,7 @@ if($username&&$password)
        if($username==$dbusername&&$password==$dbpassword)
        {
            
-           echo "Login successful,heading back to homepage";
-           print ""+$doctor_id;
-           print ""+$patient;
+           echo "Login successful, heading back to homepage";
            header( "refresh:5; url=/home.php" ); 
 
            $_SESSION['username']=$dbusername;
