@@ -19,35 +19,34 @@
                        <div class ="span4"></div>
                        <div class ="span4 offset2">
                            <a href="index.html"><img src="Assets/AHS_Logo.jpg" alt="Alberta Health Services" height="100px" width ="auto"></a>
-                           <form name="search" method="post" action="upload_backend">
-                                <fieldset>
+                           <form name="search" method="POST" action="upload/upload_backend.php">
                                     <label>Please enter Doctor_id</label>
-                                    <div name="doctor_id" class="input-control text" >
-                                        <input type="text" />
+                                    <div  class="input-control text" >
+                                        <input type="text" name="doctor_id"/>
                                     </div>
                                     <label>Please enter Patient_id</label>
-                                    <div name="patient_id" class="input-control text" >
-                                        <input type="text" />
+                                    <div  class="input-control text" >
+                                        <input type="text" name="patient_id"/>
                                     </div>
                                     <label>Please enter Test Type</label>
-                                    <div name="test_type" class="input-control text" >
-                                        <input type="text" />
+                                    <div  class="input-control text" >
+                                        <input type="text" name="test_type"/>
                                     </div>
                                     <label>When was the test prescribed? YYYY-MM-DD </label>
-                                    <div name="test_date_prescribe" class="input-control text" >
-                                        <input name ="date" type="datetime-local">
-                                    </div>
+                                    <div class="input-control datetime ">
+                                        <input  name="test_date_prescribe" type="datetime">
+                                    </div class="input-control datetime ">
                                     <label>When was the test completed? YYYY-MM-DD </label>
-                                    <div name="test_date_completed" class="input-control text" >
-                                        <input name ="date" type="datetime-local">
+                                    <div>
+                                        <input name="test_date_completed" type="datetime" >
                                     </div>
                                     <label>What is the diagnosis?</label>
-                                    <div name="test_diagnosis" class="input-control text" >
-                                        <input type="text" />
+                                    <div  class="input-control text" >
+                                        <input name="test_diagnosis"  type="text" />
                                     </div>
                                     <label>Describe the result?</label>
-                                    <div name="test_description" class="input-control text" >
-                                        <input type="text" />
+                                    <div  class="input-control text" >
+                                        <input name="test_description" type="text" />
                                     </div>
                                    
                                 
@@ -56,10 +55,10 @@
                                 
                                 <div class="form-actions">
                                    <button class="button primary">Submit</button>
-                               </div>
-                               <a href="upload.php">
-                                   <input type="button secondary" value="Cancel and clear all values" />
-                               </a>
+                                </div>
+                                
+                                <br/>
+                                <input name="clear-btn" type="reset" class ="bg-darkRed fg-white"value="Clear" onclick="upload.php"/>
                             </form>
                        </div>
                        <div class ="span4"></div>

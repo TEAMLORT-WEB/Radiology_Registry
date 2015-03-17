@@ -26,12 +26,13 @@ session_start();
                        <a href="home.php"><img src="Assets/AHS_Logo.jpg" alt="Alberta Health Services" height="100px" width ="auto"></a>
                        <?php 
                        
-                            if (isset($_SESSION['username']) and isset($_SESSION['class']))
+                            if (isset($_SESSION['username']) and isset($_SESSION['id']))
                             {
                                 
                             
                                
-                                echo  "<h3><p>You're logged in as: </h3>".$_SESSION['username'];echo '</p>';
+                                echo  "<h3><p>You're logged in as: </h3>".$_SESSION['username'];echo '</p></h3>';
+                                echo  "<h3><p>ID:".$_SESSION['id'];echo'</p></h3>';
                                
                                 /***if($_SESSION['class']=='1')
                                 {
@@ -48,7 +49,7 @@ session_start();
                                     echo '<div class="tile" data-click="transform"></div>';
                                 }
                                 echo "<p></p>";***/
-                                echo '<div class="tile" data-click="transform">
+                                echo '<div class="tile">
                                         <div class ="tile-content icon bg-lightBlue fg-white">
                                             <a href ="search.php"><i class = "icon-search"></i></a>
                                                 

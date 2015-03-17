@@ -19,12 +19,7 @@ if($username&&$password)
    $query = mysqli_query($mysqli,"SELECT * FROM users WHERE user_name='$username'");
    
    
-   $doctor = mysqli_query($mysqli,"select u.person_id from users u WHERE u.user_name='$username'");//"from users u, family_doctor fd where u.user_name = '$username' and u.persion_id = fd.doctor_id");
-   
-   
-   $patient = mysqli_query($mysqli,"select * from users u, family_doctor fd where u.user_name = '$username' and u.persion_id = fd.patient_id");
-   $id = mysqli_fetch_assoc($doctor);
-   $personid = $id['person_id'];
+
    $numrows = mysqli_num_rows($query);
    //$doctor_result = mysqli_num_rows($doctor);
    //$patient = mysqli_num_rows($patient);
@@ -36,6 +31,7 @@ if($username&&$password)
            $dbusername = $row['user_name'];
            $dbpassword = $row['password'];
            $dbtype=$row['class'];
+           $dbid=$row['person_id'];
        }
        if($username==$dbusername&&$password==$dbpassword)
        {
@@ -45,6 +41,7 @@ if($username&&$password)
 
            $_SESSION['username']=$dbusername;
            $_SESSION['class']=$dbtype;
+           $_SESSION['id']=$dbid;
 
        }
        else
