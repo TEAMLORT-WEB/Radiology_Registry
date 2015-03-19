@@ -72,7 +72,7 @@ session_start();
                                             <i class = "icon-cog"></i>
                                                 
                                         </div>
-                                        <div class="tile-status"><span class ="name">User Settings</span></div>
+                                        <div class="tile-status"><span class ="name">Modify User Info</span></div>
                                       </div>';
                                       
                                  echo '<div class="tile" data-click="transform" >
