@@ -32,16 +32,41 @@ if($username&&$password)
            $dbpassword = $row['password'];
            $dbtype=$row['class'];
            $dbid=$row['person_id'];
+              
        }
+       
+       $personal_query = mysqli_query($mysqli,"SELECT * FROM persons WHERE person_id ='$dbid'");
+       $numrows = mysqli_num_rows($personal_query);
+       if($numrows != 0)
+       {
+            while($row = mysqli_fetch_assoc($query))
+            {
+                $dbfirstname = $row['first_name'];
+                $dblastname = $row['last_name'];
+                $dbaddress=$row['address'];
+                $dbemail=$row['email'];
+                $dbphone=$row['phone'];
+                   
+            }
+       }
+       
+       
        if($username==$dbusername&&$password==$dbpassword)
        {
            
            echo "Login successful, heading back to homepage";
-           header( "refresh:5; url=/home.php" ); 
+           header( "refresh:3; url=/home.php" ); 
 
            $_SESSION['username']=$dbusername;
            $_SESSION['class']=$dbtype;
            $_SESSION['id']=$dbid;
+           $_SESSION['first_name']=$dbfirstname;
+           $_SESSION['last_name']=$dblastname; 
+           $_SESSION['address']=$dbaddress;
+           $_SESSION['email']=$dbemail;
+           $_SESSION['phone']=$dbphone;
+           
+           
 
        }
        else

@@ -60,9 +60,17 @@
                                         <div class="tile-status"><span class ="name">Create New User</span></div>
                                       </div>';
                                       
+                                 echo '<div class="tile">
+                                         <div class ="tile-content icon bg-blue fg-white">
+                                           <a href="editaccount.php"> <i class = "icon-pencil"></i></a>
+                                                 
+                                         </div>
+                                         <div class="tile-status"><span class ="name">Edit User Accounts</span></div>
+                                       </div>';
+                                      
                                       
                                  echo '<div class="tile">
-                                         <div class ="tile-content icon bg-pink fg-white">
+                                         <div id= "editpersonal" class ="tile-content icon bg-pink fg-white">
                                             <i class = "icon-wrench"></i>
                                                  
                                          </div>
@@ -94,7 +102,56 @@
        
        
        
-       
+<script type="text/javascript" charset="UTF-8" >
+            $(function () {
+                $("#editpersonal").on('click', function () {
+                    $.Dialog({
+                        shadow: true,
+                        overlay: false,
+                        draggable: true,
+                        icon: '<span class="icon-wrench"></span>',
+                        title: 'Draggable window',
+                        width: 'auto',
+                        padding: 10,
+                        content: 'This Window is draggable by caption.',
+                        onShow: function () {
+                            
+                                
+                                var strVar="";
+                                strVar += "<form id=\"form1\" method =\"post\" action =\"create_new_user.php\">   ";
+                                strVar += "    <p>New Password: <input name =\"password\" type=\"password\" \/><\/p>";
+                                strVar += "    <p>Repeat New Password: <input name =\"repeatpassword\" type=\"password\" \/><\/p>          ";
+                                strVar += "    <p>First Name: <input name =\"first_name\" type=\"text\"  \/><\/p> ";
+                                strVar += "    <p>Last Name: <input name =\"last_name\" type=\"text\" \/><\/p> ";
+                                strVar += "    <p>Address: <input name =\"address\" type=\"text\" \/><\/p> ";
+                                strVar += "    <p>email: <input name =\"email\" type=\"text\" \/><\/p> ";
+                                strVar += "    <p>Phone Number: <input name =\"phone number\" type=\"text\" \/><\/p> ";
+                                strVar += "    <p><input name =\"submit\" type=\"submit\"\/> <button class=\"button\" type=\"button\" onclick=\"$.Dialog.close()\">Cancel<\/button> <\/p>";
+                                strVar += "<\/form>";         
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                            
+                            
+
+                            $.Dialog.title("Edit Personal Info");
+                            $.Dialog.content(strVar);
+                        }
+
+                    });
+                });
+
+                
+            });
+            
+      
+        </script>       
        
 <script type="text/javascript" charset="UTF-8" >
             $(function () {
@@ -118,7 +175,7 @@
                                 strVar += "    <p>Last Name: <input name =\"last_name\" type=\"text\" \/><\/p> ";
                                 strVar += "    <p>Address: <input name =\"address\" type=\"text\" \/><\/p> ";
                                 strVar += "    <p>email: <input name =\"email\" type=\"text\" \/><\/p> ";
-                                strVar += "    <p>Username: <input name =\"phone number\" type=\"text\" \/><\/p> ";
+                                strVar += "    <p>Phone Number: <input name =\"phone number\" type=\"text\" \/><\/p> ";
                                 strVar += "    <p><input name =\"submit\" type=\"submit\"\/> <button class=\"button\" type=\"button\" onclick=\"$.Dialog.close()\">Cancel<\/button> <\/p>";
                                 strVar += "<\/form>";
                                 strVar += "";
@@ -139,10 +196,21 @@
         
         
         
+
+
+
         
-        
-        
-        
-        
+    
+
+
+
+
+
+
+
+
+
+
+
         
         
