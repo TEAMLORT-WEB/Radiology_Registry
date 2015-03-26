@@ -27,15 +27,34 @@
     $mysqli = new mysqli("localhost", "root", "goodtogo", "radiology");
     if(isset($_POST['key']) and isset($_POST['id_provided']))
     {
-        $searchID = mysqli_real_escape_string($mysqli,$_POST['id_provided']);
+        $searchID = $_POST['id_provided'];
         $new_first_name = mysqli_real_escape_string($mysqli,$_POST['first_name']);
         $new_last_name = mysqli_real_escape_string($mysqli,$_POST['last_name']);
         $new_address = mysqli_real_escape_string($mysqli,$_POST['address']);
         $new_email = mysqli_real_escape_string($mysqli,$_POST['email']);
         $new_phone = mysqli_real_escape_string($mysqli,$_POST['phone']);
-        $insert=mysqli_query($mysqli,"UPDATE persons SET 'first_name' = ".$new_first_name.", 'last_name' = "."'".$new_last_name."'".", 'address' = "."'".$new_address."'".", WHERE 'person_id' = "."'".$searchID."';");
+        $sql = "UPDATE `radiology`.`persons` SET `first_name` = "."'".$new_first_name."'".", `last_name` = "."'".$new_last_name."'".", `address` = "."'". $new_address."'".", `email` = "."'".$new_email."'".", `phone` = "."'".$new_phone."'"." WHERE `persons`.`person_id` = "."'".$searchID."'".";";
+        $insert=mysqli_query($mysqli,$sql);
         //$mysqli,"UPDATE persons SET first_name = ".$new_first_name.", last_name = ".$new_last_name.", address = ".$new_address.",email = ".$new_email.",phone = ".$new_phone." WHERE 'person_id' = ".$searchID
-        echo "update";
+        Echo "Taking you back to User Info Modify page.";
+        header( "refresh:3; url=/modifyinfo.php" ); 
+        
+        echo"<script>
+            $(function(){
+            
+                $.Notify({
+                    shadow: true,
+                    position: 'bottom-right',
+                    style: {background: 'green', color: 'white'},
+                    content: 'Update Success'
+                });
+         
+            });
+            </script>";
+
+        
+        
+        
         if ( false===$insert ) {
             printf("error: %s\n", mysqli_error($mysqli));
         }
@@ -97,7 +116,7 @@
                             </div>
                             <label>ID</label>
                             <div class="input-control text">
-                                <input type="text" name="id_provided" value='.$searchID.'>
+                                <input type="text" name="id_provided" value='.$searchID.' readonly="readonly">
                                 <button class="btn-clear"></button>
                             </div>
                             <label></label>
