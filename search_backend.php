@@ -8,8 +8,6 @@
 			
             $searchTerm = $_POST['search_term'];
             
-            //TEMPORARY DATES UNTIL UI CAN GIVE
-            
             $start_date = $_POST['start_date'];
             $end_date = $_POST['end_date'];
             
