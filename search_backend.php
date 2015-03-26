@@ -10,8 +10,8 @@
             
             //TEMPORARY DATES UNTIL UI CAN GIVE
             
-            $start_date = "1013-03-31";
-            $end_date = "3013-03-31";
+            $start_date = $_POST['start_date'];
+            $end_date = $_POST['end_date'];
             
             $terms = preg_split('/[\s,]+/', $searchTerm);
             

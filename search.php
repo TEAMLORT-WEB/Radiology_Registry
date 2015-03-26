@@ -6,9 +6,21 @@
 <html>
    <head>
        <link rel="stylesheet" href="metro/css/metro-bootstrap.css">
-       <script src="metro/min/jquery/jquery.min.js"></script>
-       <script src="metro/min/jquery/jquery.widget.min.js"></script>
-       <script src="metro/min/metro/metro.min.js"></script>
+       <script src="metro/jquery/jquery.min.js"></script>
+       <script src="metro/jquery/jquery.widget.min.js"></script>
+       <script src="metro/min/metro.min.js"></script>
+       <script src="metro/min/load-metro.js"></script>
+       <script src="metro/js/metro-calendar.js"></script>
+       <script src="metro/js/metro-datepicker.js"></script>
+       <script src="metro/js/metro-global.js"></script>
+       <script>
+       
+            $("#datepicker").datepicker();
+       
+       
+       
+       </script>
+       
    </head>
    <body class="metro">
        <div class="grid">
@@ -24,6 +36,16 @@
                                <div class="input-control text">
                                    <input type="text" name="search_term" />
                                    <button class="btn-clear"></button>
+                               </div>
+                               <label>Search from records between:</label>
+                               <div class="input-control text" data-role="datepicker" data-format="yyyy/m/d">
+                                   <input name="start_date" type="text">
+                                   <button class="btn-date"></button>
+                               </div>
+                               <label>And</label>
+                               <div class="input-control text" data-role="datepicker" data-format="yyyy/m/d">
+                                   <input name="end_date" type="text">
+                                   <button class="btn-date"></button>
                                </div>
                                <div class="form-actions">
                                    <button class="button primary">Search</button>
