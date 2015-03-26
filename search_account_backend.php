@@ -66,7 +66,7 @@
             $searchID = (int)$_POST['id_provided'];
             //echo gettype($searchID);
 
-            if ($_SESSION['class'] == '3') {
+            if ($_SESSION['class'] == 'a') {
             //there should only be one account for each id
             
                 $result = mysqli_query($mysqli,"select * 

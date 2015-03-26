@@ -18,7 +18,7 @@
             
             //For class: patient = 0, doctor = 1, radiologist = 2, admin = 3
             
-            if ($_SESSION['class'] == 3) {
+            if ($_SESSION['class'] == 'a') {
             //admin can search all records
                 for ($i = 0; $i < count($terms); $i++){
                     $result = mysqli_query($mysqli,"SELECT *,
@@ -48,7 +48,7 @@
                     }
                 }
                 
-            } else if ($_SESSION['class'] == 1){
+            } else if ($_SESSION['class'] == 'd'){
             //doctor can only view records of their patients                
                 for ($i = 0; $i < count($terms); $i++){
                     $result = mysqli_query($mysqli,"SELECT *,
@@ -79,7 +79,7 @@
                     }
                 }
 
-            } else if ($_SESSION['class'] == 0) {
+            } else if ($_SESSION['class'] == 'p') {
             //patient can only view his/her own records
                 for ($i = 0; $i < count($terms); $i++){
                     $result = mysqli_query($mysqli,"SELECT *,
@@ -110,7 +110,7 @@
                     }
                 }
                 
-            } else if ($_SESSION['class'] == 2) {
+            } else if ($_SESSION['class'] == 'r') {
             //radiologist can only review records conducted by themselves
                 for ($i = 0; $i < count($terms); $i++){
                     $result = mysqli_query($mysqli,"SELECT *,
