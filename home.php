@@ -82,7 +82,13 @@ session_start();
                                          </div>
                                          <div class="tile-status"><span class ="name">Logout</span></div>
                                        </div>';
-                                       
+                                 echo '<div class="tile double" data-click="transform" >
+                                         <div class ="tile-content icon bg-lime fg-white" href ="report.php">
+                                            <a href ="report.php"><i class = "icon-clipboard-2"></i></a>
+                                                 
+                                         </div>
+                                         <div class="tile-status"><span class ="name">Generate Diagnosis Report</span></div>
+                                       </div>';
                                 
                                 
                             
