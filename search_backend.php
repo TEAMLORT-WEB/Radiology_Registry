@@ -8,6 +8,11 @@
 			
             $searchTerm = $_POST['search_term'];
             
+            //TEMPORARY DATES UNTIL UI CAN GIVE
+            
+            $start_date = "1013-03-31";
+            $end_date = "3013-03-31";
+            
             $terms = preg_split('/[\s,]+/', $searchTerm);
             
             //Create a connection
@@ -21,7 +26,9 @@
                     $result = mysqli_query($mysqli,"SELECT *,
                                                     MATCH(`description`) AGAINST ('".$terms[$i]."') AS score
                                                     FROM radiology_record
-                                                    WHERE  MATCH(`description`) AGAINST ('".$terms[$i]."')");
+                                                    WHERE  MATCH(`description`) AGAINST ('".$terms[$i]."') AND
+                                                        ((`prescribing_date` between '".$start_date."' AND '".$end_date."') OR
+                                                        (`test_date` between '".$start_date."' AND '".$end_date."'))");
                     if(isset($union_result)){
                         $new_result = array();
                         while ($row = $result->fetch_assoc()) {
@@ -50,7 +57,9 @@
                                                     MATCH(`description`) AGAINST ('".$terms[$i]."') AS score
                                                     FROM radiology_record
                                                     WHERE  MATCH(`description`) AGAINST ('".$terms[$i]."') AND
-                                                    `doctor_id` LIKE '".$_SESSION['id']."' ");
+                                                        ((`prescribing_date` between '".$start_date."' AND '".$end_date."') OR
+                                                        (`test_date` between '".$start_date."' AND '".$end_date."')) AND
+                                                        `doctor_id` LIKE '".$_SESSION['id']."' ");
                     if(isset($union_result)){
                         $new_result = array();
                         while ($row = $result->fetch_assoc()) {
@@ -79,7 +88,9 @@
                                                     MATCH(`description`) AGAINST ('".$terms[$i]."') AS score
                                                     FROM radiology_record
                                                     WHERE  MATCH(`description`) AGAINST ('".$terms[$i]."') AND
-                                                    `patient_id` LIKE '".$_SESSION['id']."' ");
+                                                        ((`prescribing_date` between '".$start_date."' AND '".$end_date."') OR
+                                                        (`test_date` between '".$start_date."' AND '".$end_date."')) AND
+                                                        `patient_id` LIKE '".$_SESSION['id']."' ");
                     if(isset($union_result)){
                         $new_result = array();
                         while ($row = $result->fetch_assoc()) {
@@ -107,8 +118,10 @@
                     $result = mysqli_query($mysqli,"SELECT *,
                                                     MATCH(`description`) AGAINST ('".$terms[$i]."') AS score
                                                     FROM radiology_record
-                                                    WHERE  MATCH(`description`) AGAINST ('".$terms[$i]."') AND 
-                                                    `radiologist_id` LIKE '".$_SESSION['id']."' ");
+                                                    WHERE  MATCH(`description`) AGAINST ('".$terms[$i]."') AND
+                                                        ((`prescribing_date` between '".$start_date."' AND '".$end_date."') OR
+                                                        (`test_date` between '".$start_date."' AND '".$end_date."')) AND
+                                                        `radiologist_id` LIKE '".$_SESSION['id']."' ");
                     if(isset($union_result)){
                         $new_result = array();
                         while ($row = $result->fetch_assoc()) {
