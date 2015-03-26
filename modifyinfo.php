@@ -62,7 +62,7 @@
                                       
                                  echo '<div class="tile">
                                          <div class ="tile-content icon bg-blue fg-white">
-                                           <a href="editaccount.php"> <i class = "icon-pencil"></i></a>
+                                           <a href="account_search.php"> <i class = "icon-pencil"></i></a>
                                                  
                                          </div>
                                          <div class="tile-status"><span class ="name">Edit User Accounts</span></div>

@@ -39,7 +39,7 @@ if($username&&$password)
        $numrows = mysqli_num_rows($personal_query);
        if($numrows != 0)
        {
-            while($row = mysqli_fetch_assoc($query))
+            while($row = mysqli_fetch_assoc($personal_query))
             {
                 $dbfirstname = $row['first_name'];
                 $dblastname = $row['last_name'];
