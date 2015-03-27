@@ -82,12 +82,19 @@ session_start();
                                          </div>
                                          <div class="tile-status"><span class ="name">Logout</span></div>
                                        </div>';
-                                 echo '<div class="tile double" data-click="transform" >
+                                 echo '<div class="tile" data-click="transform" >
                                          <div class ="tile-content icon bg-lime fg-white" href ="report.php">
                                             <a href ="report.php"><i class = "icon-clipboard-2"></i></a>
                                                  
                                          </div>
-                                         <div class="tile-status"><span class ="name">Generate Diagnosis Report</span></div>
+                                         <div class="tile-status"><span class ="name">Generate Report</span></div>
+                                       </div>';
+                                 echo '<div class="tile" data-click="transform" >
+                                         <div class ="tile-content icon bg-Magenta fg-white" href ="image.php">
+                                            <a href ="image.php"><i class = "icon-image"></i></a>
+                                                 
+                                         </div>
+                                         <div class="tile-status"><span class ="name">Upload Pacs Image</span></div>
                                        </div>';
                                 
                                 
