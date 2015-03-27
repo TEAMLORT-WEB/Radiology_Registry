@@ -67,7 +67,8 @@ CREATE TABLE radiology_record (
    PRIMARY KEY(record_id),
    FOREIGN KEY(patient_id) REFERENCES persons(person_id),
    FOREIGN KEY(doctor_id) REFERENCES  persons(person_id),
-   FOREIGN KEY(radiologist_id) REFERENCES  persons(person_id)
+   FOREIGN KEY(radiologist_id) REFERENCES  persons(person_id),
+   FULLTEXT (description)
 );
 
 /*
