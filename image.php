@@ -39,7 +39,7 @@
                        <div class ="span4"></div>
                        <div class ="span4 offset2">
                            <a href="index.html"><img src="Assets/AHS_Logo.jpg" alt="Alberta Health Services" height="100px" width ="auto"></a>
-                           <form name="search" method="post" action="image_backend.php">
+                           <form name="search" method="post" enctype="multipart/form-data" action="image_backend.php">
                                <label>Which record does this image belong to?</label>
                                <div class="input-control text">
                                    <input type="text" name="record_id" />
