@@ -47,6 +47,7 @@
                                </div>
                                <label>Upload your image</label>
                                <div class="input-control file">
+                                        <input type="file" name="image"/>
                                         <button class="btn-file"></button>
                                     </div>
                                <div class="form-actions">
