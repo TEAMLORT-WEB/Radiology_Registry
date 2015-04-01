@@ -31,7 +31,7 @@
                         $new_result = array();
                         while ($row = $result->fetch_assoc()) {
                             for ($i = 0; $i < count($union_result); $i++){
-                                if ($union_result[0]['record_id'] == $row['record_id']){
+                                if ($union_result[$i]['record_id'] == $row['record_id']){ //Only keep results that satisfy all search terms.
                                     $new_result[] =  $row;  
                                 }
                             }
@@ -43,9 +43,22 @@
                 }
                 
                 for ($i = 0; $i < count($union_result); $i++){
+                    //Print a radiology record row
                     foreach ($union_result[$i] as $key => $value) {
                         echo " $key: $value";
                     }
+                    echo "<br>";
+                    //Print associated pacs_images
+                    $result = mysqli_query($mysqli,"SELECT record_id, image_id, thumbnail
+                                                         FROM pacs_images
+                                                         WHERE record_id = ".$union_result[$i]['record_id']."");
+                    $image_result = mysqli_fetch_all($result,MYSQLI_ASSOC);
+                    for ($j = 0; $j < count($image_result); $j++){
+                        echo "Image ID: ".$image_result[$j]['image_id'];
+                        echo '<img src="data:image/jpeg;base64,'.base64_encode($image_result[$j]['thumbnail'] ).'"/>';
+                        echo "<br>";
+                    }
+                    echo "<br>";
                 }
                 
             } else if ($_SESSION['class'] == 'd'){
@@ -62,7 +75,7 @@
                         $new_result = array();
                         while ($row = $result->fetch_assoc()) {
                             for ($i = 0; $i < count($union_result); $i++){
-                                if ($union_result[0]['record_id'] == $row['record_id']){
+                                if ($union_result[0]['record_id'] == $row['record_id']){ //Only keep results that satisfy all search terms.
                                     $new_result[] =  $row;  
                                 }
                             }
@@ -74,9 +87,22 @@
                 }
                 
                 for ($i = 0; $i < count($union_result); $i++){
+                    //Print a radiology record row
                     foreach ($union_result[$i] as $key => $value) {
                         echo " $key: $value";
                     }
+                    echo "<br>";
+                    //Print associated pacs_images
+                    $result = mysqli_query($mysqli,"SELECT record_id, image_id, thumbnail
+                                                         FROM pacs_images
+                                                         WHERE record_id = ".$union_result[$i]['record_id']."");
+                    $image_result = mysqli_fetch_all($result,MYSQLI_ASSOC);
+                    for ($j = 0; $j < count($image_result); $j++){
+                        echo "Image ID: ".$image_result[$j]['image_id'];
+                        echo '<img src="data:image/jpeg;base64,'.base64_encode($image_result[$j]['thumbnail'] ).'"/>';
+                        echo "<br>";
+                    }
+                    echo "<br>";
                 }
 
             } else if ($_SESSION['class'] == 'p') {
@@ -93,7 +119,7 @@
                         $new_result = array();
                         while ($row = $result->fetch_assoc()) {
                             for ($i = 0; $i < count($union_result); $i++){
-                                if ($union_result[0]['record_id'] == $row['record_id']){
+                                if ($union_result[0]['record_id'] == $row['record_id']){ //Only keep results that satisfy all search terms.
                                     $new_result[] =  $row;  
                                 }
                             }
@@ -105,9 +131,22 @@
                 }
                 
                 for ($i = 0; $i < count($union_result); $i++){
+                    //Print a radiology record row
                     foreach ($union_result[$i] as $key => $value) {
                         echo " $key: $value";
                     }
+                    echo "<br>";
+                    //Print associated pacs_images
+                    $result = mysqli_query($mysqli,"SELECT record_id, image_id, thumbnail
+                                                         FROM pacs_images
+                                                         WHERE record_id = ".$union_result[$i]['record_id']."");
+                    $image_result = mysqli_fetch_all($result,MYSQLI_ASSOC);
+                    for ($j = 0; $j < count($image_result); $j++){
+                        echo "Image ID: ".$image_result[$j]['image_id'];
+                        echo '<img src="data:image/jpeg;base64,'.base64_encode($image_result[$j]['thumbnail'] ).'"/>';
+                        echo "<br>";
+                    }
+                    echo "<br>";
                 }
                 
             } else if ($_SESSION['class'] == 'r') {
@@ -124,7 +163,7 @@
                         $new_result = array();
                         while ($row = $result->fetch_assoc()) {
                             for ($i = 0; $i < count($union_result); $i++){
-                                if ($union_result[0]['record_id'] == $row['record_id']){
+                                if ($union_result[0]['record_id'] == $row['record_id']){ //Only keep results that satisfy all search terms.
                                     $new_result[] =  $row;  
                                 }
                             }
@@ -136,9 +175,22 @@
                 }
                 
                 for ($i = 0; $i < count($union_result); $i++){
+                    //Print a radiology record row
                     foreach ($union_result[$i] as $key => $value) {
                         echo " $key: $value";
                     }
+                    echo "<br>";
+                    //Print associated pacs_images
+                    $result = mysqli_query($mysqli,"SELECT record_id, image_id, thumbnail
+                                                         FROM pacs_images
+                                                         WHERE record_id = ".$union_result[$i]['record_id']."");
+                    $image_result = mysqli_fetch_all($result,MYSQLI_ASSOC);
+                    for ($j = 0; $j < count($image_result); $j++){
+                        echo "Image ID: ".$image_result[$j]['image_id'];
+                        echo '<img src="data:image/jpeg;base64,'.base64_encode($image_result[$j]['thumbnail'] ).'"/>';
+                        echo "<br>";
+                    }
+                    echo "<br>";
                 }
                 
             } else {
