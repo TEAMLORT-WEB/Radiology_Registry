@@ -96,7 +96,13 @@ session_start();
                                          </div>
                                          <div class="tile-status"><span class ="name">Upload Pacs Image</span></div>
                                        </div>';
-                                
+                                 echo '<div class="tile" data-click="transform" >
+                                         <div class ="tile-content icon bg-mauve fg-white" href ="analysis.php">
+                                            <a href ="analysis.php"><i class = "icon-pie"></i></a>
+                                                 
+                                         </div>
+                                         <div class="tile-status"><span class ="name">Data analysis</span></div>
+                                       </div>';
                                 
                             
                             }
