@@ -67,10 +67,10 @@
     } else {
         echo "New Image ID: ".$new_id;
         echo "<br>";
-        echo "Image added successfully";
+        echo "Image added successfully, returning.";
     }
-        
     
+    header("refresh:3; url=/home.php");    
     ?>
     </body>
 </html>
