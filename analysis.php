@@ -47,7 +47,7 @@
                                </div>
                                <label>Please enter Test Type</label>
                                <div class="input-control text">
-                                   <input type="text" name="search_term" />
+                                   <input type="text" name="test_type" />
                                    <button class="btn-clear"></button>
                                </div>
                                <label>Search from records between:</label>
