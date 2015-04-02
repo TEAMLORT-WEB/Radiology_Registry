@@ -18,7 +18,7 @@
     
     //all is used to indicate searching for all patient ids or all test types.
     
-    if (($patient_id == 'all') and ($test_type == 'all')){
+    if ((($patient_id == 'all') or ($patient_id == '')) and (($test_type == 'all') or ($test_type == ''))){
         
         $result = mysqli_query($mysqli,"SELECT temp.test_date, temp.count
                                         FROM (select patient_id, test_type,test_date,count(record_id) AS count
@@ -149,7 +149,7 @@
             echo "<hr>";
         }
         
-    } else if ($patient_id == 'all') {
+    } else if (($patient_id == 'all') or ($patient_id == '')) {
         
         $result = mysqli_query($mysqli,"SELECT temp.count
                                         FROM (select patient_id, test_type,test_date,count(record_id) AS count
@@ -280,7 +280,7 @@
             echo "<hr>";
         }
     
-    } else if ($test_type == 'all') {
+    } else if (($test_type == 'all') or ($test_type == '')) {
         
         $result = mysqli_query($mysqli,"SELECT temp.count
                                         FROM (select patient_id, test_type,test_date,count(record_id) AS count
