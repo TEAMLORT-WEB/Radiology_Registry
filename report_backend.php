@@ -56,46 +56,38 @@
                     <div class="row">
                         <div class ="span3"></div>
                             <div class ="span6 offset2">
-                                 
-                                 
-                                 
-                                 
-                                 
-                                 
-                                 
-                                    <div>
-                                                <table class="table">
-                                                    <thead>
-                                                    <tr>
-                                                        <?php
-                                                        for ($i = 0; $i < count($fetch_result); $i++){
-                                                            foreach ($fetch_result[$i] as $key => $value) {
-                                                                echo "<th class='text-left'>".$key."</th>";
-                                                                
-                                                            }
-                                                            break;
-                                                            
-                                                        }?>
-                                                    </tr>
-                                                    </thead>
+                            <div>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <?php
+                                        for ($i = 0; $i < count($fetch_result); $i++){
+                                            foreach ($fetch_result[$i] as $key => $value) {
+                                                echo "<th class='text-left'>".$key."</th>";
+                                                
+                                            }
+                                            break;
+                                            
+                                        }?>
+                                    </tr>
+                                    </thead>
 
-                                                    <tbody>
-                                                        <?php
-                                                             for ($i = 0; $i < count($fetch_result); $i++){
-                                                                 echo"<tr>";
-                                                                 foreach ($fetch_result[$i] as $key => $value) {
-                                                                     echo "<td>".$value."</td>";
-                                                                 }
-                                                                 echo"</tr>";
-                                                             }
-                                                             
-                                                         ?> 
-                                                    </tbody>
+                                    <tbody>
+                                        <?php
+                                             for ($i = 0; $i < count($fetch_result); $i++){
+                                                 echo"<tr>";
+                                                 foreach ($fetch_result[$i] as $key => $value) {
+                                                     echo "<td>".$value."</td>";
+                                                 }
+                                                 echo"</tr>";
+                                             }
+                                             
+                                         ?> 
+                                    </tbody>
 
-                                                    <tfoot></tfoot>
-                                                </table>
-                                            </div>
-
+                                    <tfoot></tfoot>
+                                </table>
+                            </div>
                         <div class ="span3"></div>
                    </div>
                </div>
