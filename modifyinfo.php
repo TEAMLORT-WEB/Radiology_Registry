@@ -95,14 +95,14 @@
                                             printf("error: %s\n", mysqli_error($mysqli));
                                         }
                                         else
-                                            echo "User account registration successful";
+                                            echo "Personal information registered successful";
                                        
                                         $insert=mysqli_query($mysqli,"INSERT INTO users VALUES ('$username','$password','$usertype','$ID','CURDATE()')");
                                         if ( false===$insert ) {
                                             printf("error: %s\n", mysqli_error($mysqli));
                                         }
                                         else
-                                            echo "Persononal information created successful";
+                                            echo "<br>User account registration successful";
                                         
                                         
                                         
