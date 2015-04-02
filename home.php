@@ -20,10 +20,14 @@ session_start();
        
        <div id="row0" class="row" >
            <div class="span12">
+               <div class ="row">
+                   <div class ="span4 offset6">
+                       <a href="home.php"><img src="Assets/AHS_Logo.jpg" alt="Alberta Health Services" height="100px" width ="auto"></a>
+                   </div>
+               </div>
                <div class="row">
                    <div class ="span4"></div>
-                   <div class ="span4 offset2">
-                       <a href="home.php"><img src="Assets/AHS_Logo.jpg" alt="Alberta Health Services" height="100px" width ="auto"></a>
+                   <div class ="span6 offset2">              
                        <?php 
                        
                             if (isset($_SESSION['username']) and isset($_SESSION['id']))
@@ -73,15 +77,7 @@ session_start();
                                                 
                                         </div>
                                         <div class="tile-status"><span class ="name">Modify User Info</span></div>
-                                      </div>';
-                                      
-                                 echo '<div class="tile" data-click="transform" >
-                                         <div class ="tile-content icon bg-red fg-white" href ="logout.php">
-                                            <a href ="logout.php"><i class = "icon-switch"></i></a>
-                                                 
-                                         </div>
-                                         <div class="tile-status"><span class ="name">Logout</span></div>
-                                       </div>';
+                                      </div>';                                    
                                  echo '<div class="tile" data-click="transform" >
                                          <div class ="tile-content icon bg-lime fg-white" href ="report.php">
                                             <a href ="report.php"><i class = "icon-clipboard-2"></i></a>
@@ -103,7 +99,13 @@ session_start();
                                          </div>
                                          <div class="tile-status"><span class ="name">Data analysis</span></div>
                                        </div>';
-                                
+                                 echo '<div class="tile" data-click="transform" >
+                                        <div class ="tile-content icon bg-red fg-white" href ="logout.php">
+                                           <a href ="logout.php"><i class = "icon-switch"></i></a>
+                                                
+                                        </div>
+                                        <div class="tile-status"><span class ="name">Logout</span></div>
+                                      </div>';
                             
                             }
                             else
@@ -112,7 +114,6 @@ session_start();
                        ?>
                        
         
-                   <div class ="span4"></div>
                </div>
            </div>
        </div>

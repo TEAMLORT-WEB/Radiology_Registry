@@ -1,0 +1,30 @@
+<!--<table class="striped">
+            <thead>
+                <tr>
+                    <?php
+                    for ($i = 0; $i < count($fetch_result); $i++){
+                        foreach ($fetch_result[$i] as $key => $value) {
+                            echo "<th class='text-left'>".$key."</th>";
+                            
+                        }
+                        break;
+                        
+                    }?>
+
+                </tr>
+            </thead>
+            <tbody>
+               <?php
+                    for ($i = 0; $i < count($fetch_result); $i++){
+                        echo"<tr>";
+                        foreach ($fetch_result[$i] as $key => $value) {
+                            echo "<td>".$value."</td>";
+                        }
+                        echo"</tr>";
+                    }
+                    
+                ?> 
+    
+            </tbody>
+            <tfoot></tfoot>
+        </table>--!>
