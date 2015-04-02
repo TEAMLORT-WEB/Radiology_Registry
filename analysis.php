@@ -37,7 +37,13 @@
                    <div class="row">
                        <div class ="span4"></div>
                        <div class ="span4 offset2">
-                           <a href="index.html"><img src="Assets/AHS_Logo.jpg" alt="Alberta Health Services" height="100px" width ="auto"></a>
+                           <a href="home.php"><img src="Assets/AHS_Logo.jpg" alt="Alberta Health Services" height="100px" width ="auto"></a>
+                           <nav class='breadcrumbs'>
+                                <ul>
+                                    <li><a href='home.php'>Home</a></li>
+                                    <li class='active'><a href='#'>Analysis of Records</a></li>
+                                </ul>
+                           </nav>
                            <form name="search" method="post" action="analysis_backend.php">
                                
                                <label>Please enter Patient ID</label>
@@ -47,7 +53,7 @@
                                </div>
                                <label>Please enter Test Type</label>
                                <div class="input-control text">
-                                   <input type="text" name="test_type" />
+                                   <input type="text" name="search_term" />
                                    <button class="btn-clear"></button>
                                </div>
                                <label>Search from records between:</label>

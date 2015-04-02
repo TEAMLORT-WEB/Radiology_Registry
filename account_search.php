@@ -18,7 +18,14 @@
                    <div class="row">
                        <div class ="span4"></div>
                        <div class ="span4 offset2">
-                           <a href="index.html"><img src="Assets/AHS_Logo.jpg" alt="Alberta Health Services" height="100px" width ="auto"></a>
+                           <a href="home.html"><img src="Assets/AHS_Logo.jpg" alt="Alberta Health Services" height="100px" width ="auto"></a>
+                           <nav class='breadcrumbs'>
+                                <ul>
+                                    <li><a href='home.php'>Home</a></li>
+                                    <li><a href='modifyinfo.php'>Modify User Info</a></li>
+                                    <li class='active'><a href='#'>Search for Account to Modify</a></li>
+                                </ul>
+                           </nav>
                            <form name="search" method="post" action="search_account_backend.php">
                                <label>To perform administrative action on an account, please provide ID</label>
                                <div class="input-control text">

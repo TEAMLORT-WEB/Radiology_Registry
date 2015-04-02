@@ -160,6 +160,15 @@
                    <div class ="span4"></div>
                    <div class ="span4 offset2">
                        <a href="home.php"><img src="Assets/AHS_Logo.jpg" alt="Alberta Health Services" height="100px" width ="auto"></a>
+
+                       <nav class='breadcrumbs'>
+                            <ul>
+                                <li><a href='home.php'>Home</a></li>
+                                <li class='active'><a href='#'>Modify User Info</a></li>
+                            </ul>
+                        </nav>
+
+
                        <?php 
                        
                             if (isset($_SESSION['username']) and isset($_SESSION['id']))
@@ -169,6 +178,12 @@
                                
                                 echo  "<h3><p>You're logged in as: </h3>".$_SESSION['username'];echo '</p></h3>';
                                 echo  "<h3><p>ID:".$_SESSION['id'];echo'</p></h3>';
+                                 
+                                      
+                                      
+                                      
+                                      
+                                      
                                
                                 /***if($_SESSION['class']=='1')
                                 {

@@ -38,7 +38,13 @@
                    <div class="row">
                        <div class ="span4"></div>
                        <div class ="span4 offset2">
-                           <a href="index.html"><img src="Assets/AHS_Logo.jpg" alt="Alberta Health Services" height="100px" width ="auto"></a>
+                           <a href="home.php"><img src="Assets/AHS_Logo.jpg" alt="Alberta Health Services" height="100px" width ="auto"></a>
+                           <nav class='breadcrumbs'>
+                                <ul>
+                                    <li><a href='home.php'>Home</a></li>
+                                    <li class='active'><a href='#'>Upload Pacs Image</a></li>
+                                </ul>
+                           </nav>
                            <form name="search" method="post" enctype="multipart/form-data" action="image_backend.php">
                                <label>Which record does this image belong to?</label>
                                <div class="input-control text">
