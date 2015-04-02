@@ -86,7 +86,7 @@
                         $db_phone=$row['phone'];
                            
                     }
-                    //display for for user to change info
+                    //display for user to change info
                    echo'
                         <form name="modify" method="post" action="search_account_backend.php">
                             <label>Edit your First Name <br/>(old: '.$db_first_name.')</label>
@@ -121,7 +121,7 @@
                             </div>
                             <label></label>
                             <div class="form-actions">
-                                <INPUT TYPE = "Submit" class="button primary" Name = "key" VALUE = "submit_clicked">
+                                <INPUT TYPE = "Submit" class="button primary" Name = "key" VALUE = "Update">
                             </div>
                         </form>
                       ';

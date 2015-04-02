@@ -1,9 +1,142 @@
 <?php
     //require "account_login/login.php";
     Session_start();
-    $mysqli = new mysqli("localhost", "root", "goodtogo", "radiology");
-   // $insertquery = mysqli_query($mysqli,"INSERT INTO user VALUES ('$ID','$username','$encpassword','')");
+    $username = @$_POST['user_name'];
+    $password = @$_POST['password'];
+    $repeatpassword = @$_POST['repeatpassword'];
+    $usertype =@$_POST['user_type'];
+    $first_name =@$_POST['first_name'];
+    $last_name =@$_POST['last_name'];
+    $address = @$_POST['address'];
+    $email = @$_POST['email'];
+    $phone = @$_POST['phone_number'];
+    $submit = @$_POST['submit'];
+    $submit_personal = @$_POST['submit_personal'];
+    
+    if($submit_personal)
+    {
+        if(isset($_SESSION['id']))
+        {
+            $mysqli = new mysqli("localhost", "root", "goodtogo", "radiology");
+            $searchID = $_SESSION['id'];
+            $new_first_name = mysqli_real_escape_string($mysqli,@$_POST['first_name']);
+            $new_last_name = mysqli_real_escape_string($mysqli,@$_POST['last_name']);
+            $new_address = mysqli_real_escape_string($mysqli,@$_POST['address']);
+            $new_email = mysqli_real_escape_string($mysqli,@$_POST['email']);
+            $new_phone = mysqli_real_escape_string($mysqli,@$_POST['phone_number']);
+            $sql = "UPDATE `radiology`.`persons` SET `first_name` = "."'".$new_first_name."'".", `last_name` = "."'".$new_last_name."'".", `address` = "."'". $new_address."'".", `email` = "."'".$new_email."'".", `phone` = "."'".$new_phone."'"." WHERE `persons`.`person_id` = "."'".$searchID."'".";";
+            $insert=mysqli_query($mysqli,$sql);
+            //$mysqli,"UPDATE persons SET first_name = ".$new_first_name.", last_name = ".$new_last_name.", address = ".$new_address.",email = ".$new_email.",phone = ".$new_phone." WHERE 'person_id' = ".$searchID
+            
+            echo"<script>
+                $(function(){
+                
+                    $.Notify({
+                        shadow: true,
+                        position: 'bottom-right',
+                        style: {background: 'green', color: 'white'},
+                        content: 'Update Success'
+                    });
+             
+                });
+                </script>";
+            
+            
+            
+            
+            if ( false===$insert ) {
+                printf("error: %s\n", mysqli_error($mysqli));
+            }
+        }
+    }
+    //$today = getdate(); 
+    if($submit){
+        $mysqli = new mysqli("localhost", "root", "goodtogo", "radiology");
+        // $insertquery = mysqli_query($mysqli,"INSERT INTO user VALUES ('$ID','$username','$encpassword','')");
+        
+        
 
+        
+        
+        //attempt to include a new ID 
+        $count = mysqli_query($mysqli,"SELECT COUNT(person_id) as total FROM users");
+        $data=mysqli_fetch_assoc($count);
+        $ID = $data['total']+1;
+        
+        
+        
+        /* check connection */
+        if (mysqli_connect_errno()) {
+            printf("Connect failed: %s\n", mysqli_connect_error());
+            exit();
+        }
+        
+        if($username == true)
+        {
+            
+            if($usertype == true)
+            {
+                if($password == true)
+                {
+                    if($first_name == true &&$last_name == true)
+                    {
+                        if($address == true &&$email == true)
+                        {
+                            if($phone == true)
+                            {
+
+                                if(strlen($username)<50)
+                                {
+
+                                    if(strlen($password <50||strlen($password)>5))
+                                    {
+                                        $personal_action =mysqli_query($mysqli,"INSERT INTO persons VALUES ('$ID','$first_name','$last_name','$address','$email','$phone')"); 
+                                        if ( false==$personal_action ) {
+                                            printf("error: %s\n", mysqli_error($mysqli));
+                                        }
+                                        else
+                                            echo "User account registration successful";
+                                       
+                                        $insert=mysqli_query($mysqli,"INSERT INTO users VALUES ('$username','$password','$usertype','$ID','CURDATE()')");
+                                        if ( false===$insert ) {
+                                            printf("error: %s\n", mysqli_error($mysqli));
+                                        }
+                                        else
+                                            echo "Persononal information created successful";
+                                        
+                                        
+                                        
+                                    }
+                                    else
+                                        echo
+                                        "password length is between 5 to 50 characters";
+                                    
+                                }
+                                else
+                                    echo "the maximum length for username is 50";
+
+                            }
+                            else
+                                echo "please enter your phone number";
+                        }
+                        else
+                            echo"you need to enter address/email";
+                    }
+                    else
+                        echo "please fill in first/last name";
+                    
+                }
+                else
+                    echo "please enter a password";
+                
+            }
+            else    
+                echo "no user type selected";
+            
+        }
+        else 
+            echo "please enter a username";
+    }
 ?>
 
 
@@ -115,30 +248,16 @@
                         padding: 10,
                         content: 'This Window is draggable by caption.',
                         onShow: function () {
-                            
-                                
-                                var strVar="";
-                                strVar += "<form id=\"form1\" method =\"post\" action =\"create_new_user.php\">   ";
-                                strVar += "    <p>New Password: <input name =\"password\" type=\"password\" \/><\/p>";
-                                strVar += "    <p>Repeat New Password: <input name =\"repeatpassword\" type=\"password\" \/><\/p>          ";
-                                strVar += "    <p>First Name: <input name =\"first_name\" type=\"text\"  \/><\/p> ";
-                                strVar += "    <p>Last Name: <input name =\"last_name\" type=\"text\" \/><\/p> ";
-                                strVar += "    <p>Address: <input name =\"address\" type=\"text\" \/><\/p> ";
-                                strVar += "    <p>email: <input name =\"email\" type=\"text\" \/><\/p> ";
-                                strVar += "    <p>Phone Number: <input name =\"phone number\" type=\"text\" \/><\/p> ";
-                                strVar += "    <p><input name =\"submit\" type=\"submit\"\/> <button class=\"button\" type=\"button\" onclick=\"$.Dialog.close()\">Cancel<\/button> <\/p>";
-                                strVar += "<\/form>";         
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                            
-                            
+
+                            var strVar = "";
+                            strVar += "<form id=\"form1\" method =\"post\">   ";
+                            strVar += "    <p>First Name: <input name =\"first_name\" type=\"text\" \/><\/p> ";
+                            strVar += "    <p>Last Name: <input name =\"last_name\" type=\"text\" \/><\/p> ";
+                            strVar += "    <p>Address: <input name =\"address\" type=\"text\" \/><\/p> ";
+                            strVar += "    <p>Email: <input name =\"email\" type=\"text\" \/><\/p> ";
+                            strVar += "    <p>Phone Number: <input name =\"phone_number\" type=\"text\" \/><\/p> ";
+                            strVar += "    <p><input name =\"submit_personal\" type=\"submit\"\/><\/p>";
+                            strVar += "</form>";
 
                             $.Dialog.title("Edit Personal Info");
                             $.Dialog.content(strVar);
@@ -151,8 +270,7 @@
             });
             
       
-        </script>       
-       
+        </script>              
 <script type="text/javascript" charset="UTF-8" >
             $(function () {
                 $("#register").on('click', function () {
@@ -167,15 +285,23 @@
                         content: 'This Window is draggable by caption.',
                         onShow: function () {
                             var strVar="";
-                                strVar += "<form id=\"form1\" method =\"post\" action =\"create_new_user.php\">   ";
+                                strVar += "<form id=\"form1\" method =\"post\">   ";
                                 strVar += "   	<p>Username: <input name =\"user_name\" type=\"text\" \/><\/p> ";
+                                strVar += "   	<p>User Type<\/p> ";
+                                strVar += "     <div class=\"input-control select\">";
+                                strVar += "         <select name=\"user_type\">";
+                                strVar += "             <option value=\"d\">Doctor <\/option>";
+                                strVar += "             <option value=\"r\">Radiologist <\/option>";
+                                strVar += "             <option value=\"p\">Patient <\/option>";
+                                strVar += "             <option value=\"a\">Admin <\/option>";
+                                strVar += "         <\/select>";
+                                strVar += "     <\/div>";
                                 strVar += "    <p>Password: <input name =\"password\" type=\"password\" \/><\/p>";
-                                strVar += "    <p>Repeat Password: <input name =\"repeatpassword\" type=\"password\" \/><\/p>          ";
                                 strVar += "    <p>First Name: <input name =\"first_name\" type=\"text\" \/><\/p> ";
                                 strVar += "    <p>Last Name: <input name =\"last_name\" type=\"text\" \/><\/p> ";
                                 strVar += "    <p>Address: <input name =\"address\" type=\"text\" \/><\/p> ";
                                 strVar += "    <p>email: <input name =\"email\" type=\"text\" \/><\/p> ";
-                                strVar += "    <p>Phone Number: <input name =\"phone number\" type=\"text\" \/><\/p> ";
+                                strVar += "    <p>Phone Number: <input name =\"phone_number\" type=\"text\" \/><\/p> ";
                                 strVar += "    <p><input name =\"submit\" type=\"submit\"\/> <button class=\"button\" type=\"button\" onclick=\"$.Dialog.close()\">Cancel<\/button> <\/p>";
                                 strVar += "<\/form>";
                                 strVar += "";
@@ -194,6 +320,9 @@
         </script>
         
         
+
+
+
         
         
 
