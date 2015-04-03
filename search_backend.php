@@ -290,7 +290,7 @@ session_start();
                                                 $image_result = mysqli_fetch_all($result,MYSQLI_ASSOC);
                                                 
                                             }
-                                            if(count($image_result)>1)
+                                            if(count($image_result)>0)
                                             {
                                                 for ($j = 0; $j < count($image_result); $j++){
                                                     //echo "<td>"."Image ID: ".."</td>";
