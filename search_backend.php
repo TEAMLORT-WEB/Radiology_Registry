@@ -297,10 +297,19 @@ session_start();
                                                     $variable = base64_encode($image_result[$j]['regular_size']);
                                                     $new = "&apos;".$variable."&apos;";
                                                     echo "<td>";
-                                                    echo "              <div>\n";
-                                                    print "                    <button  onclick='display(".$image_result[$j]['image_id'].",".$new.");' class=\"button\" id=\"createWindow\">".'<img src="data:image/jpeg;base64,'.base64_encode($image_result[$j]['thumbnail'] ).'"/>'."</button>\n";               
-                                                    echo "              </div>\n";
+                                                        echo "<div class=\"tile\">\n"; 
+                                                        echo "    <div onclick='display(".$image_result[$j]['image_id'].",".$new.");' class=\"tile-content image\">\n"; 
+                                                        echo '    <img src="data:image/jpeg;base64,'.base64_encode($image_result[$j]['thumbnail'] ).'"/>'; 
+                                                        echo "    </div>\n"; 
+                                                        echo "    <div class=\"brand\">\n"; 
+                                                        echo "        <span class=\"label bg-steel fg-white\">Image Id:</span>\n"; 
+                                                        echo "        <span class=\"badge bg-blue\">".$image_result[$j]['image_id']."</span>\n"; 
+                                                        echo "    </div>\n"; 
+                                                        echo "</div>\n";
+
                                                     echo "</td>";
+                                                    
+                                                    
 
                                                     //http://www.andrewdavidson.com/convert-html-to-php/
                                                     //'<img src="data:image/jpeg;base64,'.base64_encode($image_result[$j]['thumbnail'] ).'"/>'
