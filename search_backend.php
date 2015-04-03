@@ -135,8 +135,33 @@ session_start();
         <script src="metro/js/metro-locale.js"></script>
         <script src="metro/js/metro-datepicker.js"></script>
         <script src="metro/js/metro-global.js"></script>
-        
     </head>
+
+
+    <script type="text/javascript">
+         function display(imageid){
+             $("#createWindow").on('click', function(){
+                 $.Dialog({
+                     flat: false,
+                     shadow: true,
+                     title: 'Pacs Image, ID: '+imageid,
+                     content: 'Test window content',
+                     height: 'auto',
+                     onShow: function(_dialog){
+                     var html = [
+                         '<iframe width="640" height="480"
+                                 src="//www.youtube.com/embed/_24bgSxAD9Q"
+                                 frameborder="0"></iframe>'
+                     ].join("");
+           
+                     $.Dialog.content(html);
+                 }
+
+                 });
+             });
+         }    
+    </script>
+
 	<body class="metro">
         <div class="grid">
             <div class="span12">
@@ -192,14 +217,24 @@ session_start();
                                                 $image_result = mysqli_fetch_all($result,MYSQLI_ASSOC);
                                                 
                                             }
-                                            for ($j = 0; $j < count($image_result); $j++){
-                                                echo "<td>"."Image ID: ".$image_result[$j]['image_id']."</td>";
-                                                echo "<td>".'<img src="data:image/jpeg;base64,'.base64_encode($image_result[$j]['thumbnail'] ).'"/>'."</td>";
+                                            if(count($image_result)>1)
+                                            {
+                                                for ($j = 0; $j < count($image_result); $j++){
+                                                    //echo "<td>"."Image ID: ".."</td>";
+                                                    $variable = (string)'<img src="data:image/jpeg;base64,'.base64_encode($image_result[$j]['thumbnail'] ).'"/>';
+                                                    echo "<td>";
+                                                    echo "              <div>\n";
+                                                    echo "                    <button  onclick='display(".$image_result[$j]['image_id'].");' class=\"button\" id=\"createWindow\">".'<img src="data:image/jpeg;base64,'.base64_encode($image_result[$j]['thumbnail'] ).'"/>'."</button>\n";               
+                                                   
+                                                    echo "              </div>\n";
+                                                    echo "</td>";
+
+                                                    //http://www.andrewdavidson.com/convert-html-to-php/
+                                                    //'<img src="data:image/jpeg;base64,'.base64_encode($image_result[$j]['thumbnail'] ).'"/>'
+                                                }
+                                            
                                             }
                                             echo"</tr>";
-                                            
-                                           
-                            
                                         }
                                         
                                         ?>

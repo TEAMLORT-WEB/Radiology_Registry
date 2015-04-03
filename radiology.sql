@@ -36,12 +36,12 @@ SET time_zone = "+00:00";
 -- Table structure for table `family_doctor`
 --
 
--- CREATE TABLE IF NOT EXISTS `family_doctor` (
---  `doctor_id` int(11) NOT NULL DEFAULT '0',
---  `patient_id` int(11) NOT NULL DEFAULT '0',
---  PRIMARY KEY (`doctor_id`,`patient_id`),
---  KEY `patient_id` (`patient_id`)
--- ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ CREATE TABLE IF NOT EXISTS `family_doctor` (
+  `doctor_id` int(11) NOT NULL DEFAULT '0',
+  `patient_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`doctor_id`,`patient_id`),
+  KEY `patient_id` (`patient_id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `family_doctor`
