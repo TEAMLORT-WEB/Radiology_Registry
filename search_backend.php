@@ -40,13 +40,20 @@ session_start();
                                                       (`test_date` between '".$start_date."' AND '".$end_date."'))");
             
             } else {
-                $result = mysqli_query($mysqli,"SELECT record_id, patient_id, doctor_id, radiologist_id, test_type, prescribing_date, test_date, diagnosis, description 
-                                                FROM (SELECT *,
-                                                      MATCH(`description`) AGAINST ('".$searchTerm."') AS score
-                                                      FROM radiology_record
-                                                      WHERE  MATCH(`description`) AGAINST ('".$searchTerm."') AND
-                                                          ((`prescribing_date` between '".$start_date."' AND '".$end_date."') OR
-                                                          (`test_date` between '".$start_date."' AND '".$end_date."'))) AS tmp");
+                $result = mysqli_query($mysqli,"SELECT record_id, patient_id, first_name, last_name, doctor_id, radiologist_id, test_type, prescribing_date, test_date, 
+                                                diagnosis, description
+                                                FROM
+                                                (SELECT *,
+                                                ((3*(MATCH(`first_name`) AGAINST ('".$searchTerm."'))) +
+                                                 (3*(MATCH(`last_name`) AGAINST ('".$searchTerm."'))) +
+                                                 (3*(MATCH(`diagnosis`) AGAINST ('".$searchTerm."'))) + 
+                                                 (1*(MATCH(`description`) AGAINST ('".$searchTerm."'))))  AS score
+                                                    FROM radiology_record, persons
+                                                    WHERE ((`prescribing_date` between '".$start_date."' AND '".$end_date."') OR
+                                                          (`test_date` between '".$start_date."' AND '".$end_date."')) AND
+                                                 	      radiology_record.patient_id = persons.person_id) AS TMP
+                                                          WHERE score > 0
+                                                          ORDER BY score DESC");
             }      
             
         } else if ($_SESSION['class'] == 'd'){
@@ -59,14 +66,21 @@ session_start();
                                                       `doctor_id` LIKE '".$_SESSION['id']."' ");
             
             } else {
-                $result = mysqli_query($mysqli,"SELECT record_id, patient_id, doctor_id, radiologist_id, test_type, prescribing_date, test_date, diagnosis, description 
-                                                FROM (SELECT *,
-                                                      MATCH(`description`) AGAINST ('".$searchTerm."') AS score
-                                                      FROM radiology_record
-                                                      WHERE  MATCH(`description`) AGAINST ('".$searchTerm."') AND
-                                                          ((`prescribing_date` between '".$start_date."' AND '".$end_date."') OR
+                $result = mysqli_query($mysqli,"SELECT record_id, patient_id, first_name, last_name, doctor_id, radiologist_id, test_type, prescribing_date, test_date, 
+                                                diagnosis, description
+                                                FROM
+                                                (SELECT *,
+                                                ((3*(MATCH(`first_name`) AGAINST ('".$searchTerm."'))) +
+                                                 (3*(MATCH(`last_name`) AGAINST ('".$searchTerm."'))) +
+                                                 (3*(MATCH(`diagnosis`) AGAINST ('".$searchTerm."'))) + 
+                                                 (1*(MATCH(`description`) AGAINST ('".$searchTerm."'))))  AS score
+                                                    FROM radiology_record, persons
+                                                    WHERE ((`prescribing_date` between '".$start_date."' AND '".$end_date."') OR
                                                           (`test_date` between '".$start_date."' AND '".$end_date."')) AND
-                                                          `doctor_id` LIKE '".$_SESSION['id']."') AS tmp ");
+                                                 	      radiology_record.patient_id = persons.person_id AND
+                                                          `doctor_id` LIKE '".$_SESSION['id']."') AS TMP
+                                                          WHERE score > 0
+                                                          ORDER BY score DESC");
             }
         } else if ($_SESSION['class'] == 'p') {
         //patient can only view his/her own records
@@ -78,14 +92,21 @@ session_start();
                                                       `patient_id` LIKE '".$_SESSION['id']."' ");
             
             } else {
-                $result = mysqli_query($mysqli,"SELECT record_id, patient_id, doctor_id, radiologist_id, test_type, prescribing_date, test_date, diagnosis, description 
-                                                FROM (SELECT *,
-                                                MATCH(`description`) AGAINST ('".$searchTerm."') AS score
-                                                FROM radiology_record
-                                                WHERE  MATCH(`description`) AGAINST ('".$searchTerm."') AND
-                                                    ((`prescribing_date` between '".$start_date."' AND '".$end_date."') OR
-                                                    (`test_date` between '".$start_date."' AND '".$end_date."')) AND
-                                                    `patient_id` LIKE '".$_SESSION['id']."') AS tmp ");
+                $result = mysqli_query($mysqli,"SELECT record_id, patient_id, first_name, last_name, doctor_id, radiologist_id, test_type, prescribing_date, 
+                                                test_date, diagnosis, description
+                                                FROM
+                                                (SELECT *,
+                                                ((3*(MATCH(`first_name`) AGAINST ('".$searchTerm."'))) +
+                                                 (3*(MATCH(`last_name`) AGAINST ('".$searchTerm."'))) +
+                                                 (3*(MATCH(`diagnosis`) AGAINST ('".$searchTerm."'))) + 
+                                                 (1*(MATCH(`description`) AGAINST ('".$searchTerm."'))))  AS score
+                                                    FROM radiology_record, persons
+                                                    WHERE ((`prescribing_date` between '".$start_date."' AND '".$end_date."') OR
+                                                          (`test_date` between '".$start_date."' AND '".$end_date."')) AND
+                                                 	      radiology_record.patient_id = persons.person_id AND
+                                                          `patient_id` LIKE '".$_SESSION['id']."') AS TMP
+                                                          WHERE score > 0
+                                                          ORDER BY score DESC");
             }
          
             
@@ -99,14 +120,20 @@ session_start();
                                                       `radiologist_id` LIKE '".$_SESSION['id']."' ");
             
             } else {
-                $result = mysqli_query($mysqli,"SELECT record_id, patient_id, doctor_id, radiologist_id, test_type, prescribing_date, test_date, diagnosis, description 
-                                                FROM (SELECT *,
-                                                      MATCH(`description`) AGAINST ('".$searchTerm."') AS score
-                                                      FROM radiology_record
-                                                      WHERE  MATCH(`description`) AGAINST ('".$searchTerm."') AND
-                                                          ((`prescribing_date` between '".$start_date."' AND '".$end_date."') OR
+                $result = mysqli_query($mysqli,"SELECT record_id, patient_id, first_name, last_name, doctor_id, radiologist_id, test_type, prescribing_date, test_date, diagnosis, description
+                                                FROM
+                                                (SELECT *,
+                                                ((3*(MATCH(`first_name`) AGAINST ('".$searchTerm."'))) +
+                                                 (3*(MATCH(`last_name`) AGAINST ('".$searchTerm."'))) +
+                                                 (3*(MATCH(`diagnosis`) AGAINST ('".$searchTerm."'))) + 
+                                                 (1*(MATCH(`description`) AGAINST ('".$searchTerm."'))))  AS score
+                                                    FROM radiology_record, persons
+                                                    WHERE ((`prescribing_date` between '".$start_date."' AND '".$end_date."') OR
                                                           (`test_date` between '".$start_date."' AND '".$end_date."')) AND
-                                                          `radiologist_id` LIKE '".$_SESSION['id']."') AS tmp ");
+                                                 	      radiology_record.patient_id = persons.person_id AND
+                                                          `radiologist_id` LIKE '".$_SESSION['id']."') AS TMP
+                                                          WHERE score > 0
+                                                          ORDER BY score DESC");
             }
             
         } else {
@@ -121,7 +148,6 @@ session_start();
 	}	
 
 	?>
-
 
 <html>
     <head>
@@ -161,7 +187,8 @@ session_start();
              });
          }    
     </script>
-
+
+
 	<body class="metro">
         <div class="grid">
             <div class="span12">
@@ -249,3 +276,4 @@ session_start();
         </div>
 	</body>
 </html>
+
