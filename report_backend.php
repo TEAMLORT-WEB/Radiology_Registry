@@ -5,6 +5,13 @@
             $start_date = $_POST['start_date'];
             $end_date = $_POST['end_date'];
             
+            if($start_date == ''){
+                $start_date = '0001-01-01';
+            } 
+            if($end_date == ''){
+                $end_date = '9999-01-01';
+            }
+            
             $mysqli = new mysqli("localhost", "root", "goodtogo", "radiology");
             
             $result = mysqli_query($mysqli,"SELECT persons.first_name, persons.last_name, persons.address, persons.phone
