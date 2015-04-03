@@ -24,8 +24,6 @@ session_start();
             $end_date = '9999-01-01';
         } 
         
-        $terms = preg_split('/[\s,]+/', $searchTerm);
-        
         //Create a connection
         $mysqli = new mysqli("localhost", "root", "goodtogo", "radiology");
         
@@ -40,14 +38,13 @@ session_start();
                                                       (`test_date` between '".$start_date."' AND '".$end_date."'))");
             
             } else {
-                for ($i = 0; $i < count($terms); $i++){
-                    $result = mysqli_query($mysqli,"SELECT *,
-                                                    MATCH(`description`) AGAINST ('".$terms[$i]."') AS score
-                                                    FROM radiology_record
-                                                    WHERE  MATCH(`description`) AGAINST ('".$terms[$i]."') AND
-                                                        ((`prescribing_date` between '".$start_date."' AND '".$end_date."') OR
-                                                        (`test_date` between '".$start_date."' AND '".$end_date."'))");
-                }
+                $result = mysqli_query($mysqli,"SELECT record_id, patient_id, doctor_id, radiologist_id, test_type, prescribing_date, test_date, diagnosis, description 
+                                                FROM (SELECT *,
+                                                      MATCH(`description`) AGAINST ('".$searchTerm."') AS score
+                                                      FROM radiology_record
+                                                      WHERE  MATCH(`description`) AGAINST ('".$searchTerm."') AND
+                                                          ((`prescribing_date` between '".$start_date."' AND '".$end_date."') OR
+                                                          (`test_date` between '".$start_date."' AND '".$end_date."'))) AS tmp");
             }      
             
         } else if ($_SESSION['class'] == 'd'){
@@ -60,15 +57,14 @@ session_start();
                                                       `doctor_id` LIKE '".$_SESSION['id']."' ");
             
             } else {
-                for ($i = 0; $i < count($terms); $i++){
-                    $result = mysqli_query($mysqli,"SELECT *,
-                                                    MATCH(`description`) AGAINST ('".$terms[$i]."') AS score
-                                                    FROM radiology_record
-                                                    WHERE  MATCH(`description`) AGAINST ('".$terms[$i]."') AND
-                                                        ((`prescribing_date` between '".$start_date."' AND '".$end_date."') OR
-                                                        (`test_date` between '".$start_date."' AND '".$end_date."')) AND
-                                                        `doctor_id` LIKE '".$_SESSION['id']."' ");
-                }
+                $result = mysqli_query($mysqli,"SELECT record_id, patient_id, doctor_id, radiologist_id, test_type, prescribing_date, test_date, diagnosis, description 
+                                                FROM (SELECT *,
+                                                      MATCH(`description`) AGAINST ('".$searchTerm."') AS score
+                                                      FROM radiology_record
+                                                      WHERE  MATCH(`description`) AGAINST ('".$searchTerm."') AND
+                                                          ((`prescribing_date` between '".$start_date."' AND '".$end_date."') OR
+                                                          (`test_date` between '".$start_date."' AND '".$end_date."')) AND
+                                                          `doctor_id` LIKE '".$_SESSION['id']."') AS tmp ");
             }
         } else if ($_SESSION['class'] == 'p') {
         //patient can only view his/her own records
@@ -80,15 +76,14 @@ session_start();
                                                       `patient_id` LIKE '".$_SESSION['id']."' ");
             
             } else {
-                for ($i = 0; $i < count($terms); $i++){
-                    $result = mysqli_query($mysqli,"SELECT *,
-                                                    MATCH(`description`) AGAINST ('".$terms[$i]."') AS score
-                                                    FROM radiology_record
-                                                    WHERE  MATCH(`description`) AGAINST ('".$terms[$i]."') AND
-                                                        ((`prescribing_date` between '".$start_date."' AND '".$end_date."') OR
-                                                        (`test_date` between '".$start_date."' AND '".$end_date."')) AND
-                                                        `patient_id` LIKE '".$_SESSION['id']."' ");
-                }
+                $result = mysqli_query($mysqli,"SELECT record_id, patient_id, doctor_id, radiologist_id, test_type, prescribing_date, test_date, diagnosis, description 
+                                                FROM (SELECT *,
+                                                MATCH(`description`) AGAINST ('".$searchTerm."') AS score
+                                                FROM radiology_record
+                                                WHERE  MATCH(`description`) AGAINST ('".$searchTerm."') AND
+                                                    ((`prescribing_date` between '".$start_date."' AND '".$end_date."') OR
+                                                    (`test_date` between '".$start_date."' AND '".$end_date."')) AND
+                                                    `patient_id` LIKE '".$_SESSION['id']."') AS tmp ");
             }
          
             
@@ -102,15 +97,14 @@ session_start();
                                                       `radiologist_id` LIKE '".$_SESSION['id']."' ");
             
             } else {
-                for ($i = 0; $i < count($terms); $i++){
-                    $result = mysqli_query($mysqli,"SELECT *,
-                                                    MATCH(`description`) AGAINST ('".$terms[$i]."') AS score
-                                                    FROM radiology_record
-                                                    WHERE  MATCH(`description`) AGAINST ('".$terms[$i]."') AND
-                                                        ((`prescribing_date` between '".$start_date."' AND '".$end_date."') OR
-                                                        (`test_date` between '".$start_date."' AND '".$end_date."')) AND
-                                                        `radiologist_id` LIKE '".$_SESSION['id']."' ");
-                }
+                $result = mysqli_query($mysqli,"SELECT record_id, patient_id, doctor_id, radiologist_id, test_type, prescribing_date, test_date, diagnosis, description 
+                                                FROM (SELECT *,
+                                                      MATCH(`description`) AGAINST ('".$searchTerm."') AS score
+                                                      FROM radiology_record
+                                                      WHERE  MATCH(`description`) AGAINST ('".$searchTerm."') AND
+                                                          ((`prescribing_date` between '".$start_date."' AND '".$end_date."') OR
+                                                          (`test_date` between '".$start_date."' AND '".$end_date."')) AND
+                                                          `radiologist_id` LIKE '".$_SESSION['id']."') AS tmp ");
             }
             
         } else {
@@ -120,20 +114,7 @@ session_start();
             
         }
             
-        
-        if(isset($union_result)){
-            $new_result = array();
-            while ($row = $result->fetch_assoc()) {
-                for ($i = 0; $i < count($union_result); $i++){
-                    if ($union_result[0]['record_id'] == $row['record_id']){ //Only keep results that satisfy all search terms
-                        $new_result[] =  $row;  
-                    }
-                }
-            }
-            $union_result = $new_result;
-        } else {
-            $union_result = mysqli_fetch_all($result,MYSQLI_ASSOC);
-        }
+        $union_result = mysqli_fetch_all($result,MYSQLI_ASSOC); //variable name is union result because of unnecessary processing that used to happen here.
         
 	}	
 
