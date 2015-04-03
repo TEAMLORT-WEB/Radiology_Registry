@@ -4,6 +4,8 @@ session_start();
     
 	if(isset($_POST['search_term'])){        	
 		
+        //To search for two word terms, use double quotes, ie. "last stage". Otherwise search will be for keywords last, and stage.
+        
         $searchTerm = $_POST['search_term'];
         
         $start_date = $_POST['start_date'];
