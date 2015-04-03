@@ -166,28 +166,18 @@ session_start();
 
 
     <script type="text/javascript">
-         function display(imageid){
-             $("#createWindow").on('click', function(){
+         function display(imageid,imagedisplay){
+         var byteCharacters = atob(imagedisplay);
                  $.Dialog({
                      flat: false,
                      shadow: true,
                      title: 'Pacs Image, ID: '+imageid,
-                     content: 'Test window content',
-                     height: 'auto',
-                     onShow: function(_dialog){
-                     var html = [
-                         '<iframe width="640" height="480"
-                                 src="//www.youtube.com/embed/_24bgSxAD9Q"
-                                 frameborder="0"></iframe>'
-                     ].join("");
-           
-                     $.Dialog.content(html);
-                 }
-
-                 });
+                     content: byteCharacters
+                     
              });
          }    
     </script>
+
 
 
 	<body class="metro">
@@ -252,8 +242,7 @@ session_start();
                                                     $variable = (string)'<img src="data:image/jpeg;base64,'.base64_encode($image_result[$j]['thumbnail'] ).'"/>';
                                                     echo "<td>";
                                                     echo "              <div>\n";
-                                                    echo "                    <button  onclick='display(".$image_result[$j]['image_id'].");' class=\"button\" id=\"createWindow\">".'<img src="data:image/jpeg;base64,'.base64_encode($image_result[$j]['thumbnail'] ).'"/>'."</button>\n";               
-                                                   
+                                                    echo "                    <button  onclick='display(".$image_result[$j]['image_id'].",".base64_encode($image_result[$j]['thumbnail'] ).");' class=\"button\" id=\"createWindow\">".'<img src="data:image/jpeg;base64,'.base64_encode($image_result[$j]['thumbnail'] ).'"/>'."</button>\n";               
                                                     echo "              </div>\n";
                                                     echo "</td>";
 
