@@ -217,18 +217,23 @@ session_start();
 
     <script type="text/javascript">
          function display(imageid,imagedisplay){
-         var byteCharacters = atob(imagedisplay);
+
                  $.Dialog({
                      flat: false,
                      shadow: true,
+                     draggable: true,
                      title: 'Pacs Image, ID: '+imageid,
-                     content: byteCharacters
+                     content: '',
+                     onShow: function(_dialog){
+                        var content = '<img src="data:image/jpeg;base64,'+imagedisplay+'"/>';
+
+                        $.Dialog.content(content);
+ 
+                    }
                      
              });
          }    
     </script>
-
-
 
 	<body class="metro">
         <div class="grid">
@@ -279,7 +284,7 @@ session_start();
                                             foreach ($union_result[$i] as $key => $value) {
                                                 echo "<td>".$value."</td>";
                                                 //Print associated pacs_images
-                                                $result = mysqli_query($mysqli,"SELECT record_id, image_id, thumbnail
+                                                $result = mysqli_query($mysqli,"SELECT record_id, image_id, thumbnail,regular_size
                                                              FROM pacs_images
                                                              WHERE record_id = ".$union_result[$i]['record_id']."");
                                                 $image_result = mysqli_fetch_all($result,MYSQLI_ASSOC);
@@ -289,10 +294,11 @@ session_start();
                                             {
                                                 for ($j = 0; $j < count($image_result); $j++){
                                                     //echo "<td>"."Image ID: ".."</td>";
-                                                    $variable = (string)'<img src="data:image/jpeg;base64,'.base64_encode($image_result[$j]['thumbnail'] ).'"/>';
+                                                    $variable = base64_encode($image_result[$j]['regular_size']);
+                                                    $new = "&apos;".$variable."&apos;";
                                                     echo "<td>";
                                                     echo "              <div>\n";
-                                                    echo "                    <button  onclick='display(".$image_result[$j]['image_id'].",".base64_encode($image_result[$j]['thumbnail'] ).");' class=\"button\" id=\"createWindow\">".'<img src="data:image/jpeg;base64,'.base64_encode($image_result[$j]['thumbnail'] ).'"/>'."</button>\n";               
+                                                    print "                    <button  onclick='display(".$image_result[$j]['image_id'].",".$new.");' class=\"button\" id=\"createWindow\">".'<img src="data:image/jpeg;base64,'.base64_encode($image_result[$j]['thumbnail'] ).'"/>'."</button>\n";               
                                                     echo "              </div>\n";
                                                     echo "</td>";
 
