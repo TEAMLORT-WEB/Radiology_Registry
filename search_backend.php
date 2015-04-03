@@ -227,7 +227,6 @@ session_start();
              });
          }    
     </script>
-
 
 
 	<body class="metro">
