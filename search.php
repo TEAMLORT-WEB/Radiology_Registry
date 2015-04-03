@@ -46,6 +46,22 @@
                                 </ul>
                            </nav>
                            <form name="search" method="post" action="search_backend.php">
+                               <label>Select By:</label>
+                               <div class="input-control radio default-style">
+                                   <label>
+                                       <input name="option" type="radio" value ="by_t"/>
+                                       <span class="check"></span>
+                                       Most Recent
+                                   </label>
+                               </div>
+                               <div class="input-control radio  default-style">
+                                   <label>
+                                       <input type="radio" name="option" value ="by_r"/>
+                                       <span class="check"></span>
+                                       Relevancy
+                                   </label>
+                               </div>
+
                                <label>Search</label>
                                <div class="input-control text">
                                    <input type="text" name="search_term" />

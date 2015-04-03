@@ -1,6 +1,7 @@
 <?php   
 
 session_start();
+    echo $_POST['option'];
     
 	if(isset($_POST['search_term'])){        	
 		
@@ -143,7 +144,7 @@ session_start();
             
         }
             
-        $union_result = mysqli_fetch_all($result,MYSQLI_ASSOC); //variable name is union result because of unnecessary processing that used to happen here.
+        $union_result = mysqli_fetch_all($result,MYSQLI_ASSOC)  ; //variable name is union result because of unnecessary processing that used to happen here.
         
 	}	
 
