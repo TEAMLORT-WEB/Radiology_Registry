@@ -21,13 +21,14 @@ session_start();
                         shadow: true,
                         draggable: true,
                         title: 'User Manual',
-                        width:'80%',
+                        width:'50%',
+                        height:'50%',
                         content: '',
                         onShow: function(_dialog){
                            var strVar="";
+                                strVar += "<p style='font-size:100%'>";
                                 strVar += "391 User Documentation for Sam Bao, Elvis Lo and Liwen Chen";
                                 strVar += '<br>';
-                                strVar += "";
                                 strVar += "Installation Instructions:";
                                 strVar += '<br>';
                                 strVar += "(Wampserver is being used by the group which only works on windows, for Linux, use Lampserver instead)";
@@ -50,7 +51,6 @@ session_start();
                                 strVar += '<br>';
                                 strVar += "8. Start services with wampserver to run the server, the server can now be reached through localhost.";
                                 strVar += '<br>';
-                                strVar += "";
                                 strVar += '<br>';
                                 strVar += "User Manual: (Note, some components are only accessible to radiologists and\/or admins, see project report for specifics)";
                                 strVar += '<br>';
@@ -109,8 +109,8 @@ session_start();
                                 strVar += "Change Personal Info(avaliable to everyone)";
                                 strVar += '<br>';
                                 strVar += "	Able to change all personal information";
-                                strVar += "";
-                                strVar += "";
+                                strVar += "</p>";
+                                
 
        
                            $.Dialog.content(strVar);
