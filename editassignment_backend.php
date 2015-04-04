@@ -30,6 +30,19 @@ $condition = @$_POST['condition'];
         if($condition=='add/')
         {   $updateinfo_patient =mysqli_real_escape_string($mysqli,@$_POST['infopatientid']);
             $updateinfo_doctor =mysqli_real_escape_string($mysqli,@$_POST['infodoctorid']);
+            
+            $result = mysqli_query($mysqli,"SELECT *
+                                            FROM users
+                                            WHERE person_id = ".$updateinfo_patient."");
+                                            
+            $testResult = mysqli_fetch_all($result,MYSQLI_ASSOC);
+            
+            if (count($testResult) == 0) {
+                echo "invalid patient id";
+                //header( "refresh:3; url=/editassignment.php" );
+                exit;
+            
+            }
 
             $result = mysqli_query($mysqli,"INSERT INTO `radiology`.`family_doctor` (`doctor_id`, `patient_id`) VALUES (".$updateinfo_doctor.", ".$updateinfo_patient.");  ");
         
@@ -39,6 +52,21 @@ $condition = @$_POST['condition'];
             $oldinfo_patient =mysqli_real_escape_string($mysqli, @$_POST['oldpatientvalue']);
             $cuurentinfo_doctor=mysqli_real_escape_string($mysqli,@$_POST['normaldoctorid']);
             $updateinfo_patient =mysqli_real_escape_string($mysqli,@$_POST['infopatientid']);
+            
+            echo $updateinfo_patient;
+            $result = mysqli_query($mysqli,"SELECT *
+                                            FROM users 
+                                            WHERE person_id = ".$updateinfo_patient."");
+                                            
+            $testResult = mysqli_fetch_all($result,MYSQLI_ASSOC);
+            
+            if (count($testResult) == 0) {
+                echo "invalid patient id";
+                //header( "refresh:3; url=/editassignment.php" );
+                exit;
+            
+            }
+                                            
 
             $result = mysqli_query($mysqli,"UPDATE `radiology`.`family_doctor` SET `patient_id` = "."'".$updateinfo_patient."'"." WHERE `family_doctor`.`doctor_id` = "."'".$cuurentinfo_doctor."'"." AND `family_doctor`.`patient_id` = "."'".$oldinfo_patient."'"."; ");
         }
@@ -46,9 +74,10 @@ $condition = @$_POST['condition'];
         {
             $delete_patient =mysqli_real_escape_string($mysqli, @$_POST['deletepatientvalue']);
             $delete_doctor=mysqli_real_escape_string($mysqli,@$_POST['deletedoctorvalue']);
-
-        
+            $str = "DELETE FROM `radiology`.`family_doctor` WHERE `family_doctor`.`doctor_id` = '$delete_doctor' AND `family_doctor`.`patient_id` = '$delete_patient'";
+            
             $result = mysqli_query($mysqli,"DELETE FROM `radiology`.`family_doctor` WHERE `family_doctor`.`doctor_id` = "."'".$delete_doctor."'"." AND `family_doctor`.`patient_id` = "."'".$delete_patient."'"." ;");
+                                                 
         }
     }
     
@@ -89,7 +118,7 @@ $condition = @$_POST['condition'];
             
             }
                                             
-            $fetch_result = mysqli_fetch_all($result,MYSQLI_ASSOC);
+            $fetch_result = $testResult;
         }
         else
         {   
