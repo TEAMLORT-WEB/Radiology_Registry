@@ -1,0 +1,51 @@
+391 Project Report for Sam Bao, Elvis Lo and Liwen Chen
+
+We are using PHP, MYSQL and WAMP server to do this project. We are using our own windows based servers. 
+
+The user initially sees the login page, index, where we ask user to input username and password. We process
+the username and password in login.php and allow the user into the system if correct. 
+
+After login, the user is directed to the home page. Depending on the class of the user (Admin, Patient, Doctor or Radiologist), the user can
+see different buttons on the home page, done through home.php.
+   
+Record search and user documentation buttons can be seen by all users, upload pacs image and upload record buttons can be seen only by radiologist and admin, 
+user management button can be seen by all users but only admin can see buttons other than change personal info. Report generating button and data analysis 
+button can only be seen by admin. Under user management, admin can additionally see buttons for creating a new user, editing user accounts and editing family 
+doctor information. 
+
+User management input and some processing is done in modifyinfo.php, with more processing in create_new_user.php and editassignment.php.
+
+Under search, user initally reaches search.html, on which users can enter search terms, and a time range to search in between. Either field can be left blank 
+and it will be assumed user wants to search for only between a range of time or that the user wishes to search for all time ranges. User is also able to 
+specify, by radio buttons, ordering results by most recent, least recent or relevancy.
+
+Regarding user class, patients can only see their own records, doctors can only see records of their patients, 
+radiologists can only see records conducted by themselves, and administrators can see any records in search.
+
+Upon search, search_backend.php queries the database and displays results, results being record information including patient name and thumbnails of
+relevant images. Thumbnails can be clicked to obtain the regular size image in a separate window.
+
+Under the upload pacs images section, upload.html allows the radiologist to enter the id of the record they want to upload the image for and to
+pick an image to upload through their file system. upload_backend.php processes the request.
+
+The upload record section simply allows a radiologist to enter all relevant information to upload a new record in upload.php. 
+A unique record id is automatically generated and the record is uploaded, this processing is done in upload_backend.php.
+
+Relevant SQL Statement:
+INSERT INTO radiology_record VALUES ('$ID','$doctor_id','$patient_id','$radiologist_id','$test_type','$prescribing_date','$test_date','$diagnosis','$description');
+
+The generate report section allows an admin to search for all records with a specific diagnosis within a specific time frame. The time range can be left
+blank and it will be assumed that user wishes to search in all time ranges. User enters information in report.php, and processing is done in report_backend.php.
+
+The data analysis section then takes the admin to analysis.php, in which the admin can specify a time range to analyze. The admin must specify a time
+range or no results will be shown. The admin will then reach the analysis_backend.php page, on which the admin can use checkboxes and radio buttons 
+to choose to display by patient, by test type, by both, or neither, weekly, monthly or yearly.
+
+Finally, user documentation contains instructions on installation and a user manual.
+
+
+
+
+
+
+
