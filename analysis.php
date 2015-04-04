@@ -1,5 +1,16 @@
 <?php 
-    
+  session_start();
+  
+  if(!(isset($_SESSION['username']) and isset($_SESSION['id'])))
+  {
+      echo"you're trying to access sensitive information, please login to verify your identity";
+      header ("refresh:1;url=/index.html");
+  }
+  if($_SESSION['class'] !='a')
+  {
+      echo"<script>alert('you do not authorized to access this page');</script>";
+      header ("url=/home.php");
+  }      
 
 
     ?>
@@ -45,17 +56,6 @@
                                 </ul>
                            </nav>
                            <form name="search" method="post" action="analysis_backend.php">
-                               
-                               <label>Please enter Patient ID</label>
-                               <div class="input-control text">
-                                   <input type="text" name="p_id" />
-                                   <button class="btn-clear"></button>
-                               </div>
-                               <label>Please enter Test Type</label>
-                               <div class="input-control text">
-                                   <input type="text" name="test_type" />
-                                   <button class="btn-clear"></button>
-                               </div>
                                <label>Search from records between:</label>
                                <div class="input-control text" data-role="datepicker" data-format="yyyy/m/d" data-locale='en'>
                                    <input name="start_date" type="text">

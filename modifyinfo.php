@@ -170,6 +170,11 @@
 
 
                        <?php 
+                            if(!(isset($_SESSION['username']) and isset($_SESSION['id'])))
+                            {
+                                echo"<script>alert('you're trying to access sensitive information, please login to verify your identity');</script>";
+                                header ("url=/index.html");
+                                }
                        
                             if (isset($_SESSION['username']) and isset($_SESSION['id']))
                             {
@@ -185,45 +190,31 @@
                                       
                                       
                                
-                                /***if($_SESSION['class']=='1')
+                                if($_SESSION['class']=='a')
                                 {
-                                    echo '<div class="tile" data-click="transform">
-                                            
+                                    echo '<div class="tile">
+                                            <div id= "register" class ="tile-content icon bg-darkbrown fg-white">
+                                                <i class = "icon-plus-2"></i>
+                                                    
+                                            </div>
+                                            <div class="tile-status"><span class ="name">Create New User</span></div>
                                           </div>';
-                                }
-                                else if($_SESSION['class'] == '2')
-                                {
-                                    echo '<div class="tile" data-click="transform"></div>';
-                                }
-                                else if($_SESSION['class'] == '3')
-                                {
-                                    echo '<div class="tile" data-click="transform"></div>';
-                                }
-                                echo "<p></p>";***/
-                                echo '<div class="tile">
-                                        <div id= "register" class ="tile-content icon bg-darkbrown fg-white">
-                                            <i class = "icon-plus-2"></i>
-                                                
-                                        </div>
-                                        <div class="tile-status"><span class ="name">Create New User</span></div>
-                                      </div>';
-                                      
-                                 echo '<div class="tile">
-                                         <div class ="tile-content icon bg-blue fg-white">
-                                           <a href="account_search.php"> <i class = "icon-pencil"></i></a>
-                                                 
-                                         </div>
-                                         <div class="tile-status"><span class ="name">Edit User Accounts</span></div>
-                                       </div>';
-                                      
-                                 echo '<div class="tile double">
-                                         <div  class ="tile-content icon bg-teal fg-white">
-                                            <a href="editassignment.php"><i class = " icon-user-3"></i></a>
-                                                 
-                                         </div>
-                                         <div class="tile-status"><span class ="name">Change Doctor Patient Assignment</span></div>
-                                       </div>';
-                                       
+                                    echo '<div class="tile double">
+                                            <div  class ="tile-content icon bg-teal fg-white">
+                                               <a href="editassignment.php"><i class = " icon-user-3"></i></a>
+                                                    
+                                            </div>
+                                            <div class="tile-status"><span class ="name">Change Doctor Patient Assignment</span></div>
+                                          </div>';                  
+                                    echo '<div class="tile">
+                                            <div class ="tile-content icon bg-blue fg-white">
+                                              <a href="account_search.php"> <i class = "icon-pencil"></i></a>
+                                                    
+                                            </div>
+                                            <div class="tile-status"><span class ="name">Edit User Accounts</span></div>
+                                          </div>';
+
+                                }                                      
                                  echo '<div class="tile">
                                          <div id= "editpersonal" class ="tile-content icon bg-pink fg-white">
                                             <i class = "icon-wrench"></i>

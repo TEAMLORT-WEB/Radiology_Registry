@@ -1,5 +1,15 @@
 <?php 
     
+    if(!(isset($_SESSION['username']) and isset($_SESSION['id'])))
+    {
+        echo"<script>alert('you're trying to access sensitive information, please login to verify your identity');</script>";
+        header ("url=/index.html");
+    }
+    if($_SESSION['class'] !='a')
+    {
+        echo"<script>alert('you do not authorized to access this page');</script>";
+        header ("url=/home.php");
+    }    
 
 
     ?>
