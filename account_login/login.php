@@ -58,7 +58,7 @@ if($username&&$password)
            header( "refresh:3; url=/home.php" ); 
 
            $_SESSION['username']=$dbusername;
-           $_SESSION['class']=$dbtype;
+           $_SESSION['classes']=$dbtype;
            $_SESSION['id']=$dbid;
            $_SESSION['first_name']=$dbfirstname;
            $_SESSION['last_name']=$dblastname; 

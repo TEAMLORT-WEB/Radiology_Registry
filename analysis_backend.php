@@ -5,7 +5,7 @@
         echo"you're trying to access sensitive information, please login to verify your identity";
         header ("refresh:1;location:index.html");
     }
-    if($_SESSION['class'] !='a')
+    if($_SESSION['classes'] !='a')
     {
         echo"<script>alert('you do not authorized to access this page');</script>";
         header ("url=/home.php");

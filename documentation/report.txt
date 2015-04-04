@@ -1,11 +1,14 @@
 391 Project Report for Sam Bao, Elvis Lo and Liwen Chen
 
 We are using PHP, MYSQL and WAMP server to do this project. We are using our own windows based servers. 
+Website Visual are powered by MetroUICSS jquery bootstrapper http://metroui.org.ua/
+
+
 
 The user initially sees the login page, index, where we ask user to input username and password. We process
 the username and password in login.php and allow the user into the system if correct. 
 
-After login, the user is directed to the home page. Depending on the class of the user (Admin, Patient, Doctor or Radiologist), the user can
+After login, the user is directed to the home page. Depending on the classes of the user (Admin, Patient, Doctor or Radiologist), the user can
 see different buttons on the home page, done through home.php.
    
 Record search and user documentation buttons can be seen by all users, upload pacs image and upload record buttons can be seen only by radiologist and admin, 
@@ -20,9 +23,9 @@ Under search, user initally reaches search.html, on which users can enter search
 and it will be assumed user wants to search for only between a range of time or that the user wishes to search for all time ranges. User is also able to 
 specify, by radio buttons, ordering results by most recent, least recent or relevancy.
 
-Regarding user class, patients can only see their own records, doctors can only see records of their patients, 
-radiologists can only see records conducted by themselves, and administrators can see any records in search. This is done by checking user class and
-using different queries for each class.
+Regarding user classes, patients can only see their own records, doctors can only see records of their patients, 
+radiologists can only see records conducted by themselves, and administrators can see any records in search. This is done by checking user classes and
+using different queries for each classes.
 
 Upon search, search_backend.php queries the database and displays results, results being record information including patient name and thumbnails of
 relevant images. Thumbnails can be clicked to obtain the regular size image in a separate window.

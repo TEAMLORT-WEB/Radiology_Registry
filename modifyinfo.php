@@ -170,7 +170,7 @@
 
 
                        <?php 
-                            if(isset($_SESSION['class']))
+                            if(isset($_SESSION['classes']))
                             {
                                 
                             }
@@ -198,7 +198,7 @@
                                       
                                       
                                
-                                if($_SESSION['class']=='a')
+                                if($_SESSION['classes']=='a')
                                 {
                                     echo '<div class="tile">
                                             <div id= "register" class ="tile-content icon bg-darkbrown fg-white">
@@ -212,7 +212,7 @@
                                                <a href="editassignment.php"><i class = " icon-user-3"></i></a>
                                                     
                                             </div>
-                                            <div class="tile-status"><span class ="name">Change Doctor Patient Assignment</span></div>
+                                            <div class="tile-status"><span class ="name">Change Family Doctor Info</span></div>
                                           </div>';                  
                                     echo '<div class="tile">
                                             <div class ="tile-content icon bg-blue fg-white">

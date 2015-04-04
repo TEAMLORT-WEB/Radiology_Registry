@@ -10,13 +10,13 @@
         modal: false,
         width: '50%',
         onShow: function (_dialog) {
-            var content = '<table class="table striped bordered">';
+            var content = '<table classes="table striped bordered">';
 
 
             content += "<thead>";
             content += "<tr>";
             for (i = 0; i < head_content.length; i++) {
-                content += "<th class='text-left'>";
+                content += "<th classes='text-left'>";
                 content += head_content[i];
                 content += "</th>";
             }
@@ -53,7 +53,7 @@ function edit(doctor_id,patient_id,editoradd) {
         shadow: true,
         overlay: false,
         draggable: true,
-        icon: '<span class="icon-wrench"></span>',
+        icon: '<span classes="icon-wrench"></span>',
         title: editoradd,
         width: 'auto',
         height: 'auto',

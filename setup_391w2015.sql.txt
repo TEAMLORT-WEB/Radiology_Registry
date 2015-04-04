@@ -23,10 +23,10 @@ CREATE TABLE persons (
 CREATE TABLE users (
    user_name varchar(24),
    password  varchar(24),
-   class     char(1),
+   classes     char(1),
    person_id int,
    date_registered date,
-   CHECK (class in ('a','p','d','r')),
+   CHECK (classes in ('a','p','d','r')),
    PRIMARY KEY(user_name),
    FOREIGN KEY (person_id) REFERENCES persons(person_id)
 );

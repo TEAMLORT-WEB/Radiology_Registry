@@ -9,14 +9,14 @@
         <script src="metro/min/load-metro.js"></script>
  
     </head>
-    <body class="metro">
-        <div class="grid">
+    <body classes="metro">
+        <div classes="grid">
         
-        <div id="row0" class="row" >
-            <div class="span12">
-                <div class="row">
-                    <div class ="span4"></div>
-                    <div class ="span4 offset2">
+        <div id="row0" classes="row" >
+            <div classes="span12">
+                <div classes="row">
+                    <div classes ="span4"></div>
+                    <div classes ="span4 offset2">
                         <a href="home.php"><img src="Assets/AHS_Logo.jpg" alt="Alberta Health Services" height="100px" width ="auto"></a>
     
     
@@ -66,7 +66,7 @@
             $searchID = (int)$_POST['id_provided'];
             //echo gettype($searchID);
 
-            if ($_SESSION['class'] == 'a') {
+            if ($_SESSION['classes'] == 'a') {
             //there should only be one account for each id
             
                 $result = mysqli_query($mysqli,"select * 
@@ -90,38 +90,38 @@
                    echo'
                         <form name="modify" method="post" action="search_account_backend.php">
                             <label>Edit your First Name <br/>(old: '.$db_first_name.')</label>
-                            <div class="input-control text">
+                            <div classes="input-control text">
                                 <input type="text" name="first_name">
-                                <button class="btn-clear"></button>
+                                <button classes="btn-clear"></button>
                             </div>
                             <label>Edit your Last Name <br/>(old: '.$db_last_name.') </label>
-                            <div class="input-control text">
+                            <div classes="input-control text">
                                 <input type="text" name="last_name">
-                                <button class="btn-clear"></button>
+                                <button classes="btn-clear"></button>
                             </div>
                             <label>Edit your Address <br/>(old: '.$db_address.')</label>
-                            <div class="input-control text">
+                            <div classes="input-control text">
                                 <input type="text" name="address" >
-                                <button class="btn-clear"></button>
+                                <button classes="btn-clear"></button>
                             </div>
                             <label>Edit your e-mail <br/>(old: '.$db_email.')</label>
-                            <div class="input-control text">
+                            <div classes="input-control text">
                                 <input type="text" name="email" />
-                                <button class="btn-clear"></button>
+                                <button classes="btn-clear"></button>
                             </div>
                             <label>Edit your phone number <br/>(old: '.$db_phone.')</label>
-                            <div class="input-control text">
+                            <div classes="input-control text">
                                 <input type="text" name="phone">
-                                <button class="btn-clear"></button>
+                                <button classes="btn-clear"></button>
                             </div>
                             <label>ID</label>
-                            <div class="input-control text">
+                            <div classes="input-control text">
                                 <input type="text" name="id_provided" value='.$searchID.' readonly="readonly">
-                                <button class="btn-clear"></button>
+                                <button classes="btn-clear"></button>
                             </div>
                             <label></label>
-                            <div class="form-actions">
-                                <INPUT TYPE = "Submit" class="button primary" Name = "key" VALUE = "Update">
+                            <div classes="form-actions">
+                                <INPUT TYPE = "Submit" classes="button primary" Name = "key" VALUE = "Update">
                             </div>
                         </form>
                       ';
@@ -133,7 +133,7 @@
             } 
             else 
             {
-                echo '<br/> Error: Invalid session class, only admin can access this function,sending you back to homepage';
+                echo '<br/> Error: Invalid session classes, only admin can access this function,sending you back to homepage';
                 header( "refresh:3; url=/home.php" ); 
             }
             

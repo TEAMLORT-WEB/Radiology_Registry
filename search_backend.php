@@ -2,7 +2,7 @@
 
 session_start();
 
-    if(isset($_SESSION['class']))
+    if(isset($_SESSION['classes']))
     {
     }
     else
@@ -47,7 +47,7 @@ session_start();
         
         //For class: patient = 0, doctor = 1, radiologist = 2, admin = 3
         
-        if ($_SESSION['class'] == 'a') {
+        if ($_SESSION['classes'] == 'a') {
         //admin can search all records
             $query = "SELECT record_id, patient_id, first_name, last_name, doctor_id, radiologist_id, test_type, prescribing_date, test_date, 
                                  diagnosis, description
@@ -83,7 +83,7 @@ session_start();
                 $result = mysqli_query($mysqli,$query." test_date ASC");
             }
             
-        } else if ($_SESSION['class'] == 'd'){
+        } else if ($_SESSION['classes'] == 'd'){
         //doctor can only view records of their patients  
             $query = "SELECT record_id, patient_id, first_name, last_name, doctor_id, radiologist_id, test_type, prescribing_date, test_date, 
                              diagnosis, description
@@ -121,7 +121,7 @@ session_start();
                 $result = mysqli_query($mysqli,$query." test_date ASC");
             }
             
-        } else if ($_SESSION['class'] == 'p') {
+        } else if ($_SESSION['classes'] == 'p') {
         //patient can only view his/her own records
             $query = "SELECT record_id, patient_id, first_name, last_name, doctor_id, radiologist_id, test_type, prescribing_date, test_date, 
                              diagnosis, description
@@ -159,7 +159,7 @@ session_start();
                 $result = mysqli_query($mysqli,$query." test_date ASC");
             }
              
-        } else if ($_SESSION['class'] == 'r') {
+        } else if ($_SESSION['classes'] == 'r') {
         //radiologist can only review records conducted by themselves
             $query = "SELECT record_id, patient_id, first_name, last_name, doctor_id, radiologist_id, test_type, prescribing_date, test_date, 
                              diagnosis, description

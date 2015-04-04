@@ -1,10 +1,10 @@
-<!--<table class="striped">
+<!--<table classes="striped">
             <thead>
                 <tr>
                     <?php
                     for ($i = 0; $i < count($fetch_result); $i++){
                         foreach ($fetch_result[$i] as $key => $value) {
-                            echo "<th class='text-left'>".$key."</th>";
+                            echo "<th classes='text-left'>".$key."</th>";
                             
                         }
                         break;

@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `radiology_record` (
 CREATE TABLE IF NOT EXISTS `users` (
   `user_name` varchar(24) NOT NULL DEFAULT '',
   `password` varchar(24) DEFAULT NULL,
-  `class` char(1) DEFAULT NULL,
+  `classes` char(1) DEFAULT NULL,
   `person_id` int(11) DEFAULT NULL,
   `date_registered` date DEFAULT NULL,
   PRIMARY KEY (`user_name`),
@@ -154,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_name`, `password`, `class`, `person_id`, `date_registered`) VALUES
+INSERT INTO `users` (`user_name`, `password`, `classes`, `person_id`, `date_registered`) VALUES
 ('derp1111', '123456789', 'p', 99799789, '2015-03-01'),
 ('derp2222', '123456789', 'r', 22222, '2015-03-01'),
 ('ejlo', '12', 'a', 659787, '2015-03-01'),

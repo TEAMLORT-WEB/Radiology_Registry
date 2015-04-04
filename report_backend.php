@@ -1,9 +1,9 @@
 <?php
 
             
-            if(isset($_SESSION['class']))
+            if(isset($_SESSION['classes']))
             {
-                if($_SESSION['class'] !='a')
+                if($_SESSION['classes'] !='a')
                 {
                     echo"<script>alert('you do not authorized to access this page');</script>";
                     header ("url=/home.php");
