@@ -311,8 +311,6 @@ $end_date = $_POST['end_date'];
 
 //Create a connection
 $mysqli = new mysqli("localhost", "root", "goodtogo", "radiology");
-
-//all is used to indicate searching for all patient ids or all test types.
     
 $result = mysqli_query($mysqli,"CREATE TEMPORARY TABLE TEMPTABLE(
                                `patient_id` int(11) DEFAULT NULL,
