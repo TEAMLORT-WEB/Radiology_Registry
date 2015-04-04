@@ -75,7 +75,6 @@ $result = mysqli_query($mysqli,"INSERT INTO TEMPTABLE (select *
                                                             select null,null,null,null,null,count(record_id)
                                                             from radiology_record ) AS temp)");           
 
-echo "Number of images for each patient<br>";
 $result = mysqli_query($mysqli,"SELECT patient_id, first_name, last_name, count
                                 FROM TEMPTABLE
                                 WHERE patient_id IS NOT NULL AND
@@ -83,13 +82,13 @@ $result = mysqli_query($mysqli,"SELECT patient_id, first_name, last_name, count
                                       test_date IS NULL");
 
 $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
-echo "";
+
 $category_array = array();
 $data_array = array();
 
 for($i = 0; $i < count($rows); $i++){
     foreach($rows[$i] as $key => $value){
-        echo $key." ";
+
         array_push($category_array,$key);
     }
     echo "<br>";
@@ -100,7 +99,6 @@ for($i = 0; $i < count($rows); $i++){
 for($i = 0; $i < count($rows); $i++){
     $temp_array = array();
     foreach($rows[$i] as $key => $value){
-        echo $value." ";
         
         array_push($temp_array,$value);
     }
@@ -127,13 +125,13 @@ for($i = 0; $i < count($rows); $i++){
     
     <script>
         
-         function displaywindow(head_content,data_content) {
+         function displaywindow(window_title,head_content,data_content) {
             $.Dialog
             ({
                 flat: false,
                 shadow: true,
                 draggable: true,
-                title: 'Test window',
+                title: window_title,
                 content: '',
                 resizable: true,
                 modal: false,
@@ -183,7 +181,7 @@ for($i = 0; $i < count($rows); $i++){
         
         var categories = <?php echo json_encode($category_array); ?>; 
         var data = <?php echo json_encode($data_array); ?>; 
-        displaywindow(categories,data);
+        displaywindow("Number of images for each patient",categories,data);
 
     </script>
 
