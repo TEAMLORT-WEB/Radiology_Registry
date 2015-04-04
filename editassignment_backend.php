@@ -79,7 +79,16 @@ $condition = @$_POST['condition'];
             $result = mysqli_query($mysqli,"SELECT *
                                             FROM family_doctor
                                             WHERE doctor_id = ".$doctor_id."");
+                                            
+            $testResult = mysqli_fetch_all($result,MYSQLI_ASSOC);
             
+            if (count($testResult) == 0) {
+                echo "invalid doctor id";
+                header( "refresh:3; url=/editassignment.php" );
+                exit;
+            
+            }
+                                            
             $fetch_result = mysqli_fetch_all($result,MYSQLI_ASSOC);
         }
         else

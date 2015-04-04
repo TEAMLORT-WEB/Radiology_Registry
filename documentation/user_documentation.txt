@@ -30,3 +30,15 @@ Enter a diagnosis result to search for, and use the calender boxes to pick a ran
 no records will be displayed. These boxes must be filled. Press search, wait for the page to load and then use the various check boxes and radio buttons 
 to choose to display by patient, by test type, by both, or neither, in a time frame of weekly, monthly or yearly.
 ---modify user info---
+Modify user info is consist of 5 sections
+Create New User(Admin Only)
+Change Family Doctor info(Admin Only)
+	Change Doctor Patient Assignment
+		Edit
+		Add
+		Delete
+Edit User Accounts(Admin Only)
+	Enter a user id to modify information about that user
+Change Personal Info(avaliable to everyone)
+	Able to change all personal information
+

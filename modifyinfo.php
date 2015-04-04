@@ -266,6 +266,7 @@
                         icon: '<span class="icon-wrench"></span>',
                         title: 'Draggable window',
                         width: 'auto',
+                        height: '50%',
                         padding: 10,
                         content: 'This Window is draggable by caption.',
                         onShow: function () {
