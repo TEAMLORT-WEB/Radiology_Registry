@@ -360,9 +360,8 @@ $result = mysqli_query($mysqli,"INSERT INTO TEMPTABLE (select *
 
 <div>
 
-<div id="weekPatientText" style="display: none"><table style="width:100%"><thead>Number of images for each patient weekly<br /><tr>
-    <th>Patient ID </th><th>First Name </th><th>Last Name </th><th>Count </th>
-                                                </tr></thead>
+<div id="weekPatientText" style="display: none"><h4>Number of images for each patient weekly(Patient ID, First Name, Last Name, Count)</h4>
+    
 
 <?php
 
@@ -387,7 +386,7 @@ while($timestamp < $end_timestamp){
     $timestamp_date = date('Y-m-d', $timestamp);
     $next_timestamp_date = date('Y-m-d', $next_timestamp);
     ob_start();
-    echo "<tr>Week of $timestamp_date<br>";
+    echo "<h5>Week of $timestamp_date</h5>";
     $result = mysqli_query($mysqli,"SELECT patient_id, first_name, last_name, SUM(count)
                                     FROM TEMPTABLE
                                     WHERE patient_id IS NOT NULL AND
@@ -397,16 +396,16 @@ while($timestamp < $end_timestamp){
     $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
     for($i = 0; $i < count($rows); $i++){
         foreach($rows[$i] as $key => $value){
-            echo  "<td width ='5%'>".$value." </td>";
+            echo  $value." ";
         }
         echo "<br>";
     }
+    echo "<hr>";
     if(count($rows) > 0){
         ob_end_flush();
     } else {
         ob_end_clean();
     }
-    echo "</tr>";
     
     $timestamp = $next_timestamp;
     $next_timestamp = strtotime('+1 week', $timestamp);
@@ -414,10 +413,9 @@ while($timestamp < $end_timestamp){
 
 ?>
 
-</table></div>
+</div>
 
-<div id="weekTestText" style="display: none"><table style="width:100%"><thead>Number of images for each test type weekly<br /><tr>
-    <th>Test type </th><th>Count </th></tr></thead>
+<div id="weekTestText" style="display: none"><h4>Number of images for each test type weekly(Test type, Count) </h4>
                                                 
 
 <?php
@@ -430,7 +428,7 @@ while($timestamp < $end_timestamp){
     $timestamp_date = date('Y-m-d', $timestamp);
     $next_timestamp_date = date('Y-m-d', $next_timestamp);
     ob_start();
-    echo "<tr>Week of $timestamp_date</tr><tr>";
+    echo "<h5>Week of $timestamp_date<h5>";
     $result = mysqli_query($mysqli,"SELECT test_type, SUM(count)
                                 FROM TEMPTABLE
                                 WHERE patient_id IS NULL AND
@@ -440,11 +438,11 @@ while($timestamp < $end_timestamp){
     $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
     for($i = 0; $i < count($rows); $i++){
         foreach($rows[$i] as $key => $value){
-            echo  "<td width ='5%'>".$value."</td>";
+            echo  $value." ";
         }
         echo "<br>";
     }
-    echo "</tr>";
+    echo "<hr>";
     if(count($rows) > 0){
         ob_end_flush();
     } else {
@@ -457,10 +455,10 @@ while($timestamp < $end_timestamp){
 
 ?>
 
-</table></div>
+</div>
 
-<div id="weekPatientTestText" style="display: none"><table style="width:100%"><thead>Number of images for each patient for each test type weekly<br /><tr>
-    <th>Patient_id </th><th>First_name </th><th>Last_name </th><th>Test_type </th><th>Count </th></tr></thead>
+<div id="weekPatientTestText" style="display: none"><h4>Number of images for each patient for each test type weekly(Patient_id, First_name 
+                                                     Last_name, Test_type, Count)</h4>
 
 <?php
 
@@ -472,7 +470,7 @@ while($timestamp < $end_timestamp){
     $timestamp_date = date('Y-m-d', $timestamp);
     $next_timestamp_date = date('Y-m-d', $next_timestamp);
     ob_start();
-    echo "<tr>Week of $timestamp_date</tr><tr>";
+    echo "<h5>Week of $timestamp_date</h5>";
     $result = mysqli_query($mysqli,"SELECT patient_id, first_name, last_name, test_type, SUM(count) 
                                 FROM TEMPTABLE
                                 WHERE patient_id IS NOT NULL AND
@@ -482,11 +480,11 @@ while($timestamp < $end_timestamp){
     $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
     for($i = 0; $i < count($rows); $i++){
         foreach($rows[$i] as $key => $value){
-            echo  "<td width ='5%'>".$value."</td>";
+            echo  $value." ";
         }
         echo "<br>";
     }
-    echo "</tr>";
+    echo "<hr>";
     if(count($rows) > 0){
         ob_end_flush();
     } else {
@@ -499,10 +497,9 @@ while($timestamp < $end_timestamp){
 
 ?>
 
-</table></div>
+</div>
 
-<div id="weekTotalText" style="display: block"><table style="width:100%"><thead>Total number of images weekly<br /><tr>
-    <th>Count </th></tr></thead>
+<div id="weekTotalText" style="display: block"><h4>Total number of images weekly(Count)</h4>
 
 <?php
 
@@ -514,7 +511,7 @@ while($timestamp < $end_timestamp){
     $timestamp_date = date('Y-m-d', $timestamp);
     $next_timestamp_date = date('Y-m-d', $next_timestamp);
     ob_start();
-    echo "<tr>Week of $timestamp_date</tr><tr>";
+    echo "<h5>Week of $timestamp_date</h5>";
     $result = mysqli_query($mysqli,"SELECT SUM(count)
                                 FROM TEMPTABLE
                                 WHERE patient_id IS NULL AND
@@ -523,11 +520,11 @@ while($timestamp < $end_timestamp){
     $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
     for($i = 0; $i < count($rows); $i++){
         foreach($rows[$i] as $key => $value){
-            echo  "<td width ='5%'>".$value."</td>";
+            echo  $value." ";
         }
         echo "<br>";
     }
-    echo "</tr>";
+    echo "<hr>";
     if($rows[0]['SUM(count)'] != NULL){
         ob_end_flush();
     } else {
@@ -557,10 +554,9 @@ $next_timestamp = strtotime('+1 month', $timestamp);
 
 ?>
 
-</table></div>
+</div>
 
-<div id="monthPatientText" style="display: none"><table style="width:100%"><thead>Number of images for each patient monthly<br /><tr>
-    <th>Patient_id </th><th>First_name </th><th>Last_name </th><th>Count </th></tr></thead>
+<div id="monthPatientText" style="display: none"><h4>Number of images for each patient monthly(Patient ID, First Name, Last Name, Count)</h4>
 
 <?php
 
@@ -568,7 +564,7 @@ while($timestamp < $end_timestamp){
     $timestamp_date = date('Y-m-d', $timestamp);
     $next_timestamp_date = date('Y-m-d', $next_timestamp);
     ob_start();
-    echo "<tr>Month of $timestamp_date</tr><tr>";
+    echo "<h5>Month of $timestamp_date</h5>";
     $result = mysqli_query($mysqli,"SELECT patient_id, first_name, last_name, SUM(count)
                                 FROM TEMPTABLE
                                 WHERE patient_id IS NOT NULL AND
@@ -578,11 +574,11 @@ while($timestamp < $end_timestamp){
     $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
     for($i = 0; $i < count($rows); $i++){
         foreach($rows[$i] as $key => $value){
-            echo  "<td width ='5%'>".$value."</td>";
+            echo  $value." ";
         }
         echo "<br>";
     }
-    echo "</tr>";
+    echo "<hr>";
     if(count($rows) > 0){
         ob_end_flush();
     } else {
@@ -595,10 +591,9 @@ while($timestamp < $end_timestamp){
 
 ?>
 
-</table></div>
+</div>
 
-<div id="monthTestText" style="display: none"><table style="width:100%"><thead>Number of images for each test type monthly<br /><tr>
-    <th>Test type </th><th>Count </th></tr></thead>
+<div id="monthTestText" style="display: none"><h4>Number of images for each test type monthly(Test type, Count)</h4>
 
 <?php
 
@@ -610,7 +605,7 @@ while($timestamp < $end_timestamp){
     $timestamp_date = date('Y-m-d', $timestamp);
     $next_timestamp_date = date('Y-m-d', $next_timestamp);
     ob_start();
-    echo "<tr>Month of $timestamp_date</tr><tr>";
+    echo "<h5>Month of $timestamp_date</h5>";
     $result = mysqli_query($mysqli,"SELECT test_type, SUM(count)
                                 FROM TEMPTABLE
                                 WHERE patient_id IS NULL AND
@@ -620,11 +615,11 @@ while($timestamp < $end_timestamp){
     $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
     for($i = 0; $i < count($rows); $i++){
         foreach($rows[$i] as $key => $value){
-            echo  "<td width ='5%'>".$value."</td>";
+            echo $value." ";
         }
         echo "<br>";
     }
-    echo "</tr>";
+    echo "<hr>";
     if(count($rows) > 0){
         ob_end_flush();
     } else {
@@ -637,10 +632,10 @@ while($timestamp < $end_timestamp){
 
 ?>
 
-</table></div>
+</div>
 
-<div id="monthPatientTestText" style="display: none"><table style="width:100%"><thead>Number of images for each patient for each test type monthly<br /><tr>
-    <th>Patient_id </th><th>First_name </th><th>Last_name </th><th>Test_type </th><th>Count </th></tr></thead>
+<div id="monthPatientTestText" style="display: none"><h4>Number of images for each patient for each test type monthly(Patient_id, First_name, 
+                                                         Last_name, Test_type, Count)</h4>
 
 <?php
 
@@ -652,7 +647,7 @@ while($timestamp < $end_timestamp){
     $timestamp_date = date('Y-m-d', $timestamp);
     $next_timestamp_date = date('Y-m-d', $next_timestamp);
     ob_start();
-    echo "<tr>Month of $timestamp_date</tr><tr>";
+    echo "<h5>Month of $timestamp_date</h5>";
     $result = mysqli_query($mysqli,"SELECT patient_id, first_name, last_name, test_type, SUM(count)
                                 FROM TEMPTABLE
                                 WHERE patient_id IS NOT NULL AND
@@ -662,11 +657,11 @@ while($timestamp < $end_timestamp){
     $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
     for($i = 0; $i < count($rows); $i++){
         foreach($rows[$i] as $key => $value){
-            echo  "<td width ='5%'>".$value."</td>";
+            echo  $value." ";
         }
         echo "<br>";
     }
-    echo "</tr>";
+    echo "<hr>";
     if(count($rows) > 0){
         ob_end_flush();
     } else {
@@ -679,10 +674,9 @@ while($timestamp < $end_timestamp){
 
 ?>
 
-</table></div>
+</div>
 
-<div id="monthTotalText" style="display: none"><table style="width:100%"><thead>Total number of images monthly<br /><tr>
-    <th>Count </th></tr></thead>
+<div id="monthTotalText" style="display: none"><h4>Total number of images monthly(Count)</h4>
 
 <?php
 
@@ -694,7 +688,7 @@ while($timestamp < $end_timestamp){
     $timestamp_date = date('Y-m-d', $timestamp);
     $next_timestamp_date = date('Y-m-d', $next_timestamp);
     ob_start();
-    echo "<tr>Month of $timestamp_date</tr><tr>";
+    echo "<h5>Month of $timestamp_date</h5>";
     $result = mysqli_query($mysqli,"SELECT SUM(count)
                                 FROM TEMPTABLE
                                 WHERE patient_id IS NULL AND
@@ -703,11 +697,11 @@ while($timestamp < $end_timestamp){
     $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
     for($i = 0; $i < count($rows); $i++){
         foreach($rows[$i] as $key => $value){
-            echo  "<td width ='5%'>".$value."</td>";
+            echo  $value." ";
         }
         echo "<br>";
     }
-    echo "</tr>";
+    echo "<hr>";
     if($rows[0]['SUM(count)'] != NULL){
         ob_end_flush();
     } else {
@@ -720,10 +714,9 @@ while($timestamp < $end_timestamp){
 
 ?>
 
-</table></div>
+</div>
 
-<div id="yearPatientText" style="display: none"><table style="width:100%"><thead>Number of images for each patient yearly<br /><tr>
-    <th>Patient_id </th><th>First_name </th><th>Last_name </th><th>Count </th></tr></thead>
+<div id="yearPatientText" style="display: none"><h4>Number of images for each patient yearly(Patient ID, First Name, Last Name, Count)</h4>
 
 <?php
 
@@ -748,7 +741,7 @@ while($timestamp < $end_timestamp){
     $timestamp_date = date('Y-m-d', $timestamp);
     $next_timestamp_date = date('Y-m-d', $next_timestamp);
     ob_start();
-    echo "<tr>Year of $timestamp_date</tr><tr>";
+    echo "<h5>Year of $timestamp_date</h5>";
     $result = mysqli_query($mysqli,"SELECT patient_id, first_name, last_name, SUM(count)
                                 FROM TEMPTABLE
                                 WHERE patient_id IS NOT NULL AND
@@ -758,11 +751,11 @@ while($timestamp < $end_timestamp){
     $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
     for($i = 0; $i < count($rows); $i++){
         foreach($rows[$i] as $key => $value){
-            echo  "<td width ='5%'>".$value."</td>";
+            echo  $value." ";
         }
         echo "<br>";
     }
-    echo "</tr>";
+    echo "<hr>";
     if(count($rows) > 0){
         ob_end_flush();
     } else {
@@ -775,11 +768,10 @@ while($timestamp < $end_timestamp){
 
 ?>
 
-</table></div>
+</div>
 
-<div id="yearTestText" style="display: none"><table style="width:100%"><thead>Number of images for each test type yearly<br /><tr>
-    <th>Test type </th><th>Count </th></tr></thead>
-
+<div id="yearTestText" style="display: none"><h4>Number of images for each test type yearly(Test type, Count)</h4>
+    
 <?php
 
 $timestamp = $first_day_timestamp;
@@ -790,7 +782,7 @@ while($timestamp < $end_timestamp){
     $timestamp_date = date('Y-m-d', $timestamp);
     $next_timestamp_date = date('Y-m-d', $next_timestamp);
     ob_start();
-    echo "<tr>Year of $timestamp_date</tr><tr>";
+    echo "<h5>Year of $timestamp_date</h5>";
     $result = mysqli_query($mysqli,"SELECT test_type, SUM(count)
                                 FROM TEMPTABLE
                                 WHERE patient_id IS NULL AND
@@ -800,11 +792,11 @@ while($timestamp < $end_timestamp){
     $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
     for($i = 0; $i < count($rows); $i++){
         foreach($rows[$i] as $key => $value){
-            echo  "<td width ='5%'>".$value."</td>";
+            echo  $value." ";
         }
         echo "<br>";
     }
-    echo "</tr>";
+    echo "<hr>";
     if(count($rows) > 0){
         ob_end_flush();
     } else {
@@ -817,10 +809,10 @@ while($timestamp < $end_timestamp){
 
 ?>
 
-</table></div>
+</div>
 
-<div id="yearPatientTestText" style="display: none"><table style="width:100%"><thead>Number of images for each patient for each test type yearly<br /><tr>
-    <th>Patient_id </th><th>First_name </th><th>Last_name </th><th>Test_type </th><th>Count </th></tr></thead>
+<div id="yearPatientTestText" style="display: none"><h4>Number of images for each patient for each test type yearly
+    (Patient_id, First_name, Last_name, Test_type, Count) </h4>
 
 <?php
 
@@ -832,7 +824,7 @@ while($timestamp < $end_timestamp){
     $timestamp_date = date('Y-m-d', $timestamp);
     $next_timestamp_date = date('Y-m-d', $next_timestamp);
     ob_start();
-    echo "<tr>Year of $timestamp_date</tr><tr>";
+    echo "<h5>Year of $timestamp_date</h5>";
     $result = mysqli_query($mysqli,"SELECT patient_id, first_name, last_name, test_type, SUM(count) 
                                 FROM TEMPTABLE
                                 WHERE patient_id IS NOT NULL AND
@@ -842,11 +834,11 @@ while($timestamp < $end_timestamp){
     $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
     for($i = 0; $i < count($rows); $i++){
         foreach($rows[$i] as $key => $value){
-            echo "<td width ='5%'>".$value."</td>";
+            echo $value." ";
         }
         echo "<br>";
     }
-    echo "</tr>";
+    echo "<hr>";
     if(count($rows) > 0){
         ob_end_flush();
     } else {
@@ -859,10 +851,9 @@ while($timestamp < $end_timestamp){
 
 ?>
 
-</table></div>
+</div>
 
-<div id="yearTotalText" style="display: none"><table style="width:100%"><thead>Total number of images yearly<br /><tr>
-    <th>Count </th></tr></thead>
+<div id="yearTotalText" style="display: none"><h4>Total number of images yearly(Count)</h4>
 
 <?php
 
@@ -874,7 +865,7 @@ while($timestamp < $end_timestamp){
     $timestamp_date = date('Y-m-d', $timestamp);
     $next_timestamp_date = date('Y-m-d', $next_timestamp);
     ob_start();
-    echo "<tr>Year of $timestamp_date</tr><tr>";
+    echo "<h5>Year of $timestamp_date</h5>";
     $result = mysqli_query($mysqli,"SELECT SUM(count)
                                 FROM TEMPTABLE
                                 WHERE patient_id IS NULL AND
@@ -883,11 +874,11 @@ while($timestamp < $end_timestamp){
     $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
     for($i = 0; $i < count($rows); $i++){
         foreach($rows[$i] as $key => $value){
-            echo "<td width ='5%'>".$value."</td>";
+            echo $value." ";
         }
         echo "<br>";
     }
-    echo "</tr>";
+    echo "<hr>";
     if($rows[0]['SUM(count)'] != NULL){
         ob_end_flush();
     } else {
@@ -902,7 +893,7 @@ while($timestamp < $end_timestamp){
 
     </div>
 
-</table></div>
+</div>
     </body>
 </html>
 
