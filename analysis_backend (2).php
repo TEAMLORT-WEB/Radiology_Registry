@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <html>
 <head></head>
 <body>
@@ -5,20 +9,265 @@
 <script type="text/javascript">
     var patientCheck = 0;
     var testCheck = 0;
-    var month = 0;
+    var dateMode = "weekly";
 
-    function oncheck() {
+    function switchTables() {
+        
+        /*
+        alert("Value of patientCheck " + patientCheck);
+        alert("Value of testCheck " + testCheck);
+        alert("Value of dateMode " + dateMode);
+        */
+
         var ele = document.getElementById("weekPatientText");
-        var text = document.getElementById("displayText");
-        if (ele.style.display == "block") {
-            ele.style.display = "none";
-            text.innerHTML = "show";
+        var weekPatientText = document.getElementById("weekPatientText");
+        var weekTestText = document.getElementById("weekTestText");
+        var weekPatientTestText = document.getElementById("weekPatientTestText");
+        var weekTotalText = document.getElementById("weekTotalText");
+        var monthPatientText = document.getElementById("monthPatientText");
+        var monthTestText = document.getElementById("monthTestText");
+        var monthPatientTestText = document.getElementById("monthPatientTestText");
+        var monthTotalText = document.getElementById("monthTotalText");
+        var yearPatientText = document.getElementById("yearPatientText");
+        var yearTestText = document.getElementById("yearTestText");
+        var yearPatientTestText = document.getElementById("yearPatientTestText");
+        var yearTotalText = document.getElementById("yearTotalText");
+
+        /*
+        weekPatientText.style.display = "none";
+        weekTestText.style.display = "none";
+        weekPatientTestText.style.display = "none";
+        weekTotalText.style.display = "none";
+        monthPatientText.style.display = "none";
+        monthTestText.style.display = "none";
+        monthPatientTestText.style.display = "none";
+        monthTotalText.style.display = "none";
+        yearPatientText.style.display = "none";
+        yearTestText.style.display = "none";
+        yearPatientTestText.style.display = "none";
+        yearTotalText.style.display = "none";
+        */
+        
+        /*
+        while((weekPatientText.style.display != "none") || (weekTestText.style.display != "none") || (weekPatientTextText.style.display != "none") ||
+            (weekTotalText.style.display != "none") || (monthPatientText.style.display != "none") || (monthTestText.style.display != "none") ||
+            (monthPatientTextText.style.display != "none") || (monthTotalText.style.display != "none") || (yearPatientText.style.display != "none") ||
+            (yearTestText.style.display != "none") || (yearPatientTextText.style.display != "none") || (yearTotalText.style.display != "none")) {
+        } */
+
+        //NOTE: A ton of repeated code here because setting display to none before setting block didn't work for some reason.
+        
+        if (dateMode == "weekly") {
+            //alert("Value of dateMode " + dateMode);
+            if ((patientCheck == 0) && (testCheck == 0)) {
+                weekTotalText.style.display = "block";
+                weekPatientText.style.display = "none";
+                weekTestText.style.display = "none";
+                weekPatientTestText.style.display = "none";
+                monthPatientText.style.display = "none";
+                monthTestText.style.display = "none";
+                monthPatientTestText.style.display = "none";
+                monthTotalText.style.display = "none";
+                yearPatientText.style.display = "none";
+                yearTestText.style.display = "none";
+                yearPatientTestText.style.display = "none";
+                yearTotalText.style.display = "none";
+            } else if ((patientCheck == 0) && (testCheck == 1)) {
+                weekTestText.style.display = "block";
+                weekPatientText.style.display = "none";
+                weekPatientTestText.style.display = "none";
+                weekTotalText.style.display = "none";
+                monthPatientText.style.display = "none";
+                monthTestText.style.display = "none";
+                monthPatientTestText.style.display = "none";
+                monthTotalText.style.display = "none";
+                yearPatientText.style.display = "none";
+                yearTestText.style.display = "none";
+                yearPatientTestText.style.display = "none";
+                yearTotalText.style.display = "none";
+            } else if ((patientCheck == 1) && (testCheck == 0)) {
+                weekPatientText.style.display = "block";
+                weekTestText.style.display = "none";
+                weekPatientTestText.style.display = "none";
+                weekTotalText.style.display = "none";
+                monthPatientText.style.display = "none";
+                monthTestText.style.display = "none";
+                monthPatientTestText.style.display = "none";
+                monthTotalText.style.display = "none";
+                yearPatientText.style.display = "none";
+                yearTestText.style.display = "none";
+                yearPatientTestText.style.display = "none";
+                yearTotalText.style.display = "none";
+            } else if ((patientCheck == 1) && (testCheck == 1)){
+                weekPatientTestText.style.display = "block";
+                weekPatientText.style.display = "none";
+                weekTestText.style.display = "none";
+                weekTotalText.style.display = "none";
+                monthPatientText.style.display = "none";
+                monthPatientText.style.display = "none";
+                monthPatientTestText.style.display = "none";
+                monthTotalText.style.display = "none";
+                yearPatientText.style.display = "none";
+                yearTestText.style.display = "none";
+                yearPatientTestText.style.display = "none";
+                yearTotalText.style.display = "none";
+            }
+        } else if (dateMode == "monthly") {
+            //alert("Value of dateMode " + dateMode);
+            if ((patientCheck == 0) && (testCheck == 0)) {
+                monthTotalText.style.display = "block";
+                weekTotalText.style.display = "none";
+                weekPatientText.style.display = "none";
+                weekTestText.style.display = "none";
+                weekPatientTestText.style.display = "none";
+                monthPatientText.style.display = "none";
+                monthTestText.style.display = "none";
+                monthPatientTestText.style.display = "none";
+                yearPatientText.style.display = "none";
+                yearTestText.style.display = "none";
+                yearPatientTestText.style.display = "none";
+                yearTotalText.style.display = "none";
+            } else if ((patientCheck == 0) && (testCheck == 1)) {
+                monthTestText.style.display = "block";
+                weekTotalText.style.display = "none";
+                weekPatientText.style.display = "none";
+                weekTestText.style.display = "none";
+                weekPatientTestText.style.display = "none";
+                monthPatientText.style.display = "none";
+                monthPatientTestText.style.display = "none";
+                monthTotalText.style.display = "none";
+                yearPatientText.style.display = "none";
+                yearTestText.style.display = "none";
+                yearPatientTestText.style.display = "none";
+                yearTotalText.style.display = "none";
+            } else if ((patientCheck == 1) && (testCheck == 0)) {
+                monthPatientText.style.display = "block";
+                weekTotalText.style.display = "none";
+                weekPatientText.style.display = "none";
+                weekTestText.style.display = "none";
+                weekPatientTestText.style.display = "none";
+                monthTestText.style.display = "none";
+                monthPatientTestText.style.display = "none";
+                monthTotalText.style.display = "none";
+                yearPatientText.style.display = "none";
+                yearTestText.style.display = "none";
+                yearPatientTestText.style.display = "none";
+                yearTotalText.style.display = "none";
+            } else if ((patientCheck == 1) && (testCheck == 1)) {
+                monthPatientTestText.style.display = "block";
+                weekTotalText.style.display = "none";
+                weekPatientText.style.display = "none";
+                weekTestText.style.display = "none";
+                weekPatientTestText.style.display = "none";
+                monthPatientText.style.display = "none";
+                monthTestText.style.display = "none";
+                monthTotalText.style.display = "none";
+                yearPatientText.style.display = "none";
+                yearTestText.style.display = "none";
+                yearPatientTestText.style.display = "none";
+                yearTotalText.style.display = "none";
+            }
+        } else {
+            //alert("Value of dateMode " + dateMode);
+            if ((patientCheck == 0) && (testCheck == 0)) {
+                yearTotalText.style.display = "block";
+                yearPatientText.style.display = "none";
+                yearTestText.style.display = "none";
+                yearPatientTestText.style.display = "none";
+                monthPatientText.style.display = "none";
+                monthTestText.style.display = "none";
+                monthPatientTestText.style.display = "none";
+                monthTotalText.style.display = "none";
+                weekTotalText.style.display = "none";
+                weekPatientText.style.display = "none";
+                weekTestText.style.display = "none";
+                weekPatientTestText.style.display = "none";
+            } else if ((patientCheck == 0) && (testCheck == 1)) {
+                yearTestText.style.display = "block";
+                yearPatientText.style.display = "none";
+                yearPatientTestText.style.display = "none";
+                yearTotalText.style.display = "none";
+                monthPatientText.style.display = "none";
+                monthTestText.style.display = "none";
+                monthPatientTestText.style.display = "none";
+                monthTotalText.style.display = "none";
+                weekTotalText.style.display = "none";
+                weekPatientText.style.display = "none";
+                weekTestText.style.display = "none";
+                weekPatientTestText.style.display = "none";
+            } else if ((patientCheck == 1) && (testCheck == 0)) {
+                yearPatientText.style.display = "block";
+                yearTestText.style.display = "none";
+                yearPatientTestText.style.display = "none";
+                yearTotalText.style.display = "none";
+                monthPatientText.style.display = "none";
+                monthTestText.style.display = "none";
+                monthPatientTestText.style.display = "none";
+                monthTotalText.style.display = "none";
+                weekTotalText.style.display = "none";
+                weekPatientText.style.display = "none";
+                weekTestText.style.display = "none";
+                weekPatientTestText.style.display = "none";
+            } else if ((patientCheck == 1) && (testCheck == 1)) {
+                yearPatientTestText.style.display = "block";
+                yearPatientText.style.display = "none";
+                yearTestText.style.display = "none";
+                yearTotalText.style.display = "none";
+                monthPatientText.style.display = "none";
+                monthTestText.style.display = "none";
+                monthPatientTestText.style.display = "none";
+                monthTotalText.style.display = "none";
+                weekTotalText.style.display = "none";
+                weekPatientText.style.display = "none";
+                weekTestText.style.display = "none";
+                weekPatientTestText.style.display = "none"; 
+            }
         }
-        else {
-            ele.style.display = "block";
-            text.innerHTML = "hide";
-        }
+
     }
+    function oncheck() {
+        if (patientCheck == 1) {
+            patientCheck = 0;
+            while (patientCheck != 0) { //Block until assignment complete.
+            }
+        } else {
+            patientCheck = 1;
+            while (patientCheck != 1) { //Block until assignment complete.
+            }
+        }
+        switchTables();
+    }
+    function oncheck2() {
+        if (testCheck == 1) {
+            testCheck = 0;
+            while (testCheck != 0) { //Block until assignment complete.
+            }
+        } else {
+            testCheck = 1;
+            while (testCheck != 1) { //Block until assignment complete.
+            }
+        }
+        switchTables();
+    }
+    function weekButton() {
+        dateMode = "weekly";
+        while (dateMode != "weekly") { //Block until assignment complete.
+        }
+        switchTables();
+    }
+    function monthButton() {
+        dateMode = "monthly";
+        while (dateMode != "monthly") { //Block until assignment complete.
+        }
+        switchTables();
+    }
+    function yearButton() {
+        dateMode = "yearly";
+        while (dateMode != "yearly") { //Block until assignment complete.
+        }
+        switchTables();
+    }
+
     </script>
 
 <input type="checkbox" onclick="oncheck()"> By patient
@@ -26,28 +275,26 @@
 <div id="by_w" class="input-control radio margin10" data-role="input-control">
                 <label>
                     By Week
-                    <input type="radio" name="r1" onclick="weekButton()" checked />
+                    <input type="radio" name="r1" onchange="weekButton()" checked />
                     <span class="check"></span>
                 </label>
             </div>
             <div id="by_m" class="input-control radio margin10" data-role="input-control">
                 <label>
                     By Month
-                    <input type="radio" name="r1" onclick="monthButton()"/>
+                    <input type="radio" name="r1" onchange="monthButton()"/>
                     <span class="check"></span>
                 </label>
             </div>
             <div id="by_y" class="input-control radio margin10" data-role="input-control">
                 <label>
                     By Year
-                    <input type="radio" name="r1" onclick="yearButton()" />
+                    <input type="radio" name="r1" onchange="yearButton()" />
                     <span class="check"></span>
                 </label>
             </div>
 
 <?php
-    
-session_start();
 
 $patient_id = $_POST['p_id'];
 $test_type = $_POST['test_type'];
@@ -111,6 +358,8 @@ $result = mysqli_query($mysqli,"INSERT INTO TEMPTABLE (select *
                                                             from radiology_record ) AS temp)");           
 ?>
 
+<div>
+
 <div id="weekPatientText" style="display: none"><table style="width:100%"><thead>Number of images for each patient weekly<br /><tr>
     <th>Patient ID </th><th>First Name </th><th>Last Name </th><th>Count </th>
                                                 </tr></thead>
@@ -167,18 +416,21 @@ while($timestamp < $end_timestamp){
 
 </table></div>
 
+<div id="weekTestText" style="display: none"><table style="width:100%"><thead>Number of images for each test type weekly<br /><tr>
+    <th>Test type </th><th>Count </th></tr></thead>
+                                                
+
 <?php
 
 $timestamp = $first_day_timestamp;
 
 $next_timestamp = strtotime('+1 week', $timestamp);
 
-echo "<br>Number of images for each test type weekly<br>";
 while($timestamp < $end_timestamp){
     $timestamp_date = date('Y-m-d', $timestamp);
     $next_timestamp_date = date('Y-m-d', $next_timestamp);
     ob_start();
-    echo "Week of $timestamp_date<br>";
+    echo "<tr>Week of $timestamp_date</tr><tr>";
     $result = mysqli_query($mysqli,"SELECT test_type, SUM(count)
                                 FROM TEMPTABLE
                                 WHERE patient_id IS NULL AND
@@ -188,11 +440,11 @@ while($timestamp < $end_timestamp){
     $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
     for($i = 0; $i < count($rows); $i++){
         foreach($rows[$i] as $key => $value){
-            echo  $value." ";
+            echo  "<td width ='5%'>".$value."</td>";
         }
         echo "<br>";
     }
-    echo "<hr>";
+    echo "</tr>";
     if(count($rows) > 0){
         ob_end_flush();
     } else {
@@ -203,16 +455,24 @@ while($timestamp < $end_timestamp){
     $next_timestamp = strtotime('+1 week', $timestamp);
 }
 
+?>
+
+</table></div>
+
+<div id="weekPatientTestText" style="display: none"><table style="width:100%"><thead>Number of images for each patient for each test type weekly<br /><tr>
+    <th>Patient_id </th><th>First_name </th><th>Last_name </th><th>Test_type </th><th>Count </th></tr></thead>
+
+<?php
+
 $timestamp = $first_day_timestamp;
 
 $next_timestamp = strtotime('+1 week', $timestamp);
 
-echo "<br>Number of images for each patient for each test type weekly<br>";
 while($timestamp < $end_timestamp){
     $timestamp_date = date('Y-m-d', $timestamp);
     $next_timestamp_date = date('Y-m-d', $next_timestamp);
     ob_start();
-    echo "Week of $timestamp_date<br>";
+    echo "<tr>Week of $timestamp_date</tr><tr>";
     $result = mysqli_query($mysqli,"SELECT patient_id, first_name, last_name, test_type, SUM(count) 
                                 FROM TEMPTABLE
                                 WHERE patient_id IS NOT NULL AND
@@ -222,11 +482,11 @@ while($timestamp < $end_timestamp){
     $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
     for($i = 0; $i < count($rows); $i++){
         foreach($rows[$i] as $key => $value){
-            echo  $value." ";
+            echo  "<td width ='5%'>".$value."</td>";
         }
         echo "<br>";
     }
-    echo "<hr>";
+    echo "</tr>";
     if(count($rows) > 0){
         ob_end_flush();
     } else {
@@ -237,16 +497,24 @@ while($timestamp < $end_timestamp){
     $next_timestamp = strtotime('+1 week', $timestamp);
 }
 
+?>
+
+</table></div>
+
+<div id="weekTotalText" style="display: block"><table style="width:100%"><thead>Total number of images weekly<br /><tr>
+    <th>Count </th></tr></thead>
+
+<?php
+
 $timestamp = $first_day_timestamp;
 
 $next_timestamp = strtotime('+1 week', $timestamp);
 
-echo "<br>Total number of images weekly<br>";
 while($timestamp < $end_timestamp){
     $timestamp_date = date('Y-m-d', $timestamp);
     $next_timestamp_date = date('Y-m-d', $next_timestamp);
     ob_start();
-    echo "Week of $timestamp_date<br>";
+    echo "<tr>Week of $timestamp_date</tr><tr>";
     $result = mysqli_query($mysqli,"SELECT SUM(count)
                                 FROM TEMPTABLE
                                 WHERE patient_id IS NULL AND
@@ -255,11 +523,11 @@ while($timestamp < $end_timestamp){
     $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
     for($i = 0; $i < count($rows); $i++){
         foreach($rows[$i] as $key => $value){
-            echo  $value." ";
+            echo  "<td width ='5%'>".$value."</td>";
         }
         echo "<br>";
     }
-    echo "<hr>";
+    echo "</tr>";
     if($rows[0]['SUM(count)'] != NULL){
         ob_end_flush();
     } else {
@@ -287,12 +555,20 @@ $first_day_timestamp = $timestamp; //Store initial value for next three queries.
 
 $next_timestamp = strtotime('+1 month', $timestamp);
 
-echo "<br>Number of images for each patient monthly<br>";
+?>
+
+</table></div>
+
+<div id="monthPatientText" style="display: none"><table style="width:100%"><thead>Number of images for each patient monthly<br /><tr>
+    <th>Patient_id </th><th>First_name </th><th>Last_name </th><th>Count </th></tr></thead>
+
+<?php
+
 while($timestamp < $end_timestamp){
     $timestamp_date = date('Y-m-d', $timestamp);
     $next_timestamp_date = date('Y-m-d', $next_timestamp);
     ob_start();
-    echo "Month of $timestamp_date<br>";
+    echo "<tr>Month of $timestamp_date</tr><tr>";
     $result = mysqli_query($mysqli,"SELECT patient_id, first_name, last_name, SUM(count)
                                 FROM TEMPTABLE
                                 WHERE patient_id IS NOT NULL AND
@@ -302,11 +578,11 @@ while($timestamp < $end_timestamp){
     $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
     for($i = 0; $i < count($rows); $i++){
         foreach($rows[$i] as $key => $value){
-            echo  $value." ";
+            echo  "<td width ='5%'>".$value."</td>";
         }
         echo "<br>";
     }
-    echo "<hr>";
+    echo "</tr>";
     if(count($rows) > 0){
         ob_end_flush();
     } else {
@@ -317,16 +593,24 @@ while($timestamp < $end_timestamp){
     $next_timestamp = strtotime('+1 month', $timestamp);
 }
 
+?>
+
+</table></div>
+
+<div id="monthTestText" style="display: none"><table style="width:100%"><thead>Number of images for each test type monthly<br /><tr>
+    <th>Test type </th><th>Count </th></tr></thead>
+
+<?php
+
 $timestamp = $first_day_timestamp;
 
 $next_timestamp = strtotime('+1 month', $timestamp);
 
-echo "<br>Number of images for each test type monthly<br>";
 while($timestamp < $end_timestamp){
     $timestamp_date = date('Y-m-d', $timestamp);
     $next_timestamp_date = date('Y-m-d', $next_timestamp);
     ob_start();
-    echo "Month of $timestamp_date<br>";
+    echo "<tr>Month of $timestamp_date</tr><tr>";
     $result = mysqli_query($mysqli,"SELECT test_type, SUM(count)
                                 FROM TEMPTABLE
                                 WHERE patient_id IS NULL AND
@@ -336,11 +620,11 @@ while($timestamp < $end_timestamp){
     $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
     for($i = 0; $i < count($rows); $i++){
         foreach($rows[$i] as $key => $value){
-            echo  $value." ";
+            echo  "<td width ='5%'>".$value."</td>";
         }
         echo "<br>";
     }
-    echo "<hr>";
+    echo "</tr>";
     if(count($rows) > 0){
         ob_end_flush();
     } else {
@@ -351,16 +635,24 @@ while($timestamp < $end_timestamp){
     $next_timestamp = strtotime('+1 month', $timestamp);
 }
 
+?>
+
+</table></div>
+
+<div id="monthPatientTestText" style="display: none"><table style="width:100%"><thead>Number of images for each patient for each test type monthly<br /><tr>
+    <th>Patient_id </th><th>First_name </th><th>Last_name </th><th>Test_type </th><th>Count </th></tr></thead>
+
+<?php
+
 $timestamp = $first_day_timestamp;
 
 $next_timestamp = strtotime('+1 month', $timestamp);
 
-echo "<br>Number of images for each patient for each test type monthly<br>";
 while($timestamp < $end_timestamp){
     $timestamp_date = date('Y-m-d', $timestamp);
     $next_timestamp_date = date('Y-m-d', $next_timestamp);
     ob_start();
-    echo "Month of $timestamp_date<br>";
+    echo "<tr>Month of $timestamp_date</tr><tr>";
     $result = mysqli_query($mysqli,"SELECT patient_id, first_name, last_name, test_type, SUM(count)
                                 FROM TEMPTABLE
                                 WHERE patient_id IS NOT NULL AND
@@ -370,11 +662,11 @@ while($timestamp < $end_timestamp){
     $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
     for($i = 0; $i < count($rows); $i++){
         foreach($rows[$i] as $key => $value){
-            echo  $value." ";
+            echo  "<td width ='5%'>".$value."</td>";
         }
         echo "<br>";
     }
-    echo "<hr>";
+    echo "</tr>";
     if(count($rows) > 0){
         ob_end_flush();
     } else {
@@ -385,16 +677,24 @@ while($timestamp < $end_timestamp){
     $next_timestamp = strtotime('+1 month', $timestamp);
 }
 
+?>
+
+</table></div>
+
+<div id="monthTotalText" style="display: none"><table style="width:100%"><thead>Total number of images monthly<br /><tr>
+    <th>Count </th></tr></thead>
+
+<?php
+
 $timestamp = $first_day_timestamp;
 
 $next_timestamp = strtotime('+1 month', $timestamp);
 
-echo "<br>Total number of images monthly<br>";
 while($timestamp < $end_timestamp){
     $timestamp_date = date('Y-m-d', $timestamp);
     $next_timestamp_date = date('Y-m-d', $next_timestamp);
     ob_start();
-    echo "Month of $timestamp_date<br>";
+    echo "<tr>Month of $timestamp_date</tr><tr>";
     $result = mysqli_query($mysqli,"SELECT SUM(count)
                                 FROM TEMPTABLE
                                 WHERE patient_id IS NULL AND
@@ -403,11 +703,11 @@ while($timestamp < $end_timestamp){
     $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
     for($i = 0; $i < count($rows); $i++){
         foreach($rows[$i] as $key => $value){
-            echo  $value." ";
+            echo  "<td width ='5%'>".$value."</td>";
         }
         echo "<br>";
     }
-    echo "<hr>";
+    echo "</tr>";
     if($rows[0]['SUM(count)'] != NULL){
         ob_end_flush();
     } else {
@@ -417,6 +717,15 @@ while($timestamp < $end_timestamp){
     $timestamp = $next_timestamp;
     $next_timestamp = strtotime('+1 month', $timestamp);
 }
+
+?>
+
+</table></div>
+
+<div id="yearPatientText" style="display: none"><table style="width:100%"><thead>Number of images for each patient yearly<br /><tr>
+    <th>Patient_id </th><th>First_name </th><th>Last_name </th><th>Count </th></tr></thead>
+
+<?php
 
 //-----Yearly-----
 $timestamp = strtotime($start_date);
@@ -435,12 +744,11 @@ $first_day_timestamp = $timestamp; //Store initial value for next three queries.
 
 $next_timestamp = strtotime('+1 year', $timestamp);
 
-echo "<br>Number of images for each patient yearly<br>";
 while($timestamp < $end_timestamp){
     $timestamp_date = date('Y-m-d', $timestamp);
     $next_timestamp_date = date('Y-m-d', $next_timestamp);
     ob_start();
-    echo "Year of $timestamp_date<br>";
+    echo "<tr>Year of $timestamp_date</tr><tr>";
     $result = mysqli_query($mysqli,"SELECT patient_id, first_name, last_name, SUM(count)
                                 FROM TEMPTABLE
                                 WHERE patient_id IS NOT NULL AND
@@ -450,11 +758,11 @@ while($timestamp < $end_timestamp){
     $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
     for($i = 0; $i < count($rows); $i++){
         foreach($rows[$i] as $key => $value){
-            echo  $value." ";
+            echo  "<td width ='5%'>".$value."</td>";
         }
         echo "<br>";
     }
-    echo "<hr>";
+    echo "</tr>";
     if(count($rows) > 0){
         ob_end_flush();
     } else {
@@ -465,16 +773,24 @@ while($timestamp < $end_timestamp){
     $next_timestamp = strtotime('+1 year', $timestamp);
 }
 
+?>
+
+</table></div>
+
+<div id="yearTestText" style="display: none"><table style="width:100%"><thead>Number of images for each test type yearly<br /><tr>
+    <th>Test type </th><th>Count </th></tr></thead>
+
+<?php
+
 $timestamp = $first_day_timestamp;
 
 $next_timestamp = strtotime('+1 year', $timestamp);
 
-echo "<br>Number of images for each test type yearly<br>";
 while($timestamp < $end_timestamp){
     $timestamp_date = date('Y-m-d', $timestamp);
     $next_timestamp_date = date('Y-m-d', $next_timestamp);
     ob_start();
-    echo "Year of $timestamp_date<br>";
+    echo "<tr>Year of $timestamp_date</tr><tr>";
     $result = mysqli_query($mysqli,"SELECT test_type, SUM(count)
                                 FROM TEMPTABLE
                                 WHERE patient_id IS NULL AND
@@ -484,11 +800,11 @@ while($timestamp < $end_timestamp){
     $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
     for($i = 0; $i < count($rows); $i++){
         foreach($rows[$i] as $key => $value){
-            echo  $value." ";
+            echo  "<td width ='5%'>".$value."</td>";
         }
         echo "<br>";
     }
-    echo "<hr>";
+    echo "</tr>";
     if(count($rows) > 0){
         ob_end_flush();
     } else {
@@ -499,16 +815,24 @@ while($timestamp < $end_timestamp){
     $next_timestamp = strtotime('+1 year', $timestamp);
 }
 
+?>
+
+</table></div>
+
+<div id="yearPatientTestText" style="display: none"><table style="width:100%"><thead>Number of images for each patient for each test type yearly<br /><tr>
+    <th>Patient_id </th><th>First_name </th><th>Last_name </th><th>Test_type </th><th>Count </th></tr></thead>
+
+<?php
+
 $timestamp = $first_day_timestamp;
 
 $next_timestamp = strtotime('+1 year', $timestamp);
 
-echo "<br>Number of images for each patient for each test type yearly<br>";
 while($timestamp < $end_timestamp){
     $timestamp_date = date('Y-m-d', $timestamp);
     $next_timestamp_date = date('Y-m-d', $next_timestamp);
     ob_start();
-    echo "Year of $timestamp_date<br>";
+    echo "<tr>Year of $timestamp_date</tr><tr>";
     $result = mysqli_query($mysqli,"SELECT patient_id, first_name, last_name, test_type, SUM(count) 
                                 FROM TEMPTABLE
                                 WHERE patient_id IS NOT NULL AND
@@ -518,11 +842,11 @@ while($timestamp < $end_timestamp){
     $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
     for($i = 0; $i < count($rows); $i++){
         foreach($rows[$i] as $key => $value){
-            echo  $value." ";
+            echo "<td width ='5%'>".$value."</td>";
         }
         echo "<br>";
     }
-    echo "<hr>";
+    echo "</tr>";
     if(count($rows) > 0){
         ob_end_flush();
     } else {
@@ -533,16 +857,24 @@ while($timestamp < $end_timestamp){
     $next_timestamp = strtotime('+1 year', $timestamp);
 }
 
+?>
+
+</table></div>
+
+<div id="yearTotalText" style="display: none"><table style="width:100%"><thead>Total number of images yearly<br /><tr>
+    <th>Count </th></tr></thead>
+
+<?php
+
 $timestamp = $first_day_timestamp;
 
 $next_timestamp = strtotime('+1 month', $timestamp);
 
-echo "<br>Total number of images yearly<br>";
 while($timestamp < $end_timestamp){
     $timestamp_date = date('Y-m-d', $timestamp);
     $next_timestamp_date = date('Y-m-d', $next_timestamp);
     ob_start();
-    echo "Year of $timestamp_date<br>";
+    echo "<tr>Year of $timestamp_date</tr><tr>";
     $result = mysqli_query($mysqli,"SELECT SUM(count)
                                 FROM TEMPTABLE
                                 WHERE patient_id IS NULL AND
@@ -551,11 +883,11 @@ while($timestamp < $end_timestamp){
     $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
     for($i = 0; $i < count($rows); $i++){
         foreach($rows[$i] as $key => $value){
-            echo  $value." ";
+            echo "<td width ='5%'>".$value."</td>";
         }
         echo "<br>";
     }
-    echo "<hr>";
+    echo "</tr>";
     if($rows[0]['SUM(count)'] != NULL){
         ob_end_flush();
     } else {
@@ -566,48 +898,11 @@ while($timestamp < $end_timestamp){
     $next_timestamp = strtotime('+1 year', $timestamp);
 }
 
-echo "<br>";
+?>
 
-//echo mysqli_error($mysqli);?>
+    </div>
 
-</body>
-</html>
-
-<html>
-
-    <script type="text/javascript">
-        function toggle() {
-            var ele = document.getElementById("toggleText");
-            var text = document.getElementById("displayText");
-            if (ele.style.display == "block") {
-                ele.style.display = "none";
-                text.innerHTML = "show";
-            }
-            else {
-                ele.style.display = "block";
-                text.innerHTML = "hide";
-            }
-        }
-    </script>
-
-    <head>
-        <link rel="stylesheet" href="metro/css/metro-bootstrap.css">
-        <link rel="stylesheet" href="metro/css/iconFont.css">
-        <script src="metro/jquery/jquery.min.js"></script>
-        <script src="metro/jquery/jquery.widget.min.js"></script>
-        <script src="metro/min/metro.min.js"></script>
-        <script src="metro/min/load-metro.js"></script>
-        <script src="metro/js/metro-calendar.js"></script>
-        <script src="metro/js/metro-locale.js"></script>
-        <script src="metro/js/metro-datepicker.js"></script>
-        <script src="metro/js/metro-global.js"></script>
-    
-        
-    </head>
-    <body>
-
-        <a id="displayText" href="javascript:toggle();">show</a> <== click Here
-        <div id="toggleText" style="display: none"><TABLE class="table"><tr><th>peek-a-boo</th></tr><tr><th>pekachu</th></tr></TABLE></div>
+</table></div>
     </body>
 </html>
 
