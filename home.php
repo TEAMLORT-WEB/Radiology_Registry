@@ -37,7 +37,7 @@ session_start();
                                
                                 echo  "<h3><p>You're logged in as: </h3>".$_SESSION['username'];echo '</p></h3>';
                                 echo  "<h3><p>ID:".$_SESSION['id'];echo'</p></h3>';
-                                echo  $_SESSION['classes'];
+                                //echo  $_SESSION['classes'];
                                 echo '<div class="tile">
                                         <div class ="tile-content icon bg-lightBlue fg-white">
                                             <a href ="search.php"><i class = "icon-search"></i></a>
