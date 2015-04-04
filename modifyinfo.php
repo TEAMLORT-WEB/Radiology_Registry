@@ -216,7 +216,14 @@
                                          <div class="tile-status"><span class ="name">Edit User Accounts</span></div>
                                        </div>';
                                       
-                                      
+                                 echo '<div class="tile double">
+                                         <div  class ="tile-content icon bg-teal fg-white">
+                                            <a href="editassignment.php"><i class = " icon-user-3"></i></a>
+                                                 
+                                         </div>
+                                         <div class="tile-status"><span class ="name">Change Doctor Patient Assignment</span></div>
+                                       </div>';
+                                       
                                  echo '<div class="tile">
                                          <div id= "editpersonal" class ="tile-content icon bg-pink fg-white">
                                             <i class = "icon-wrench"></i>
