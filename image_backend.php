@@ -1,7 +1,8 @@
 <html>
 	<body>
     <?php
-    
+    session_start();
+    $mysqli = new mysqli("localhost", "root", "goodtogo", "radiology");
      if(isset($_SESSION['classes']))
      {
          if($_SESSION['classes'] !='a'&&$_SESSION['classes'] !='r')
@@ -14,14 +15,25 @@
      }
      else
      {
+         echo $_SESSION['classes'];
          echo"<script>alert('you re trying to access sensitive information, please login to verify your identity');</script>";
          header ("location: index.html");
      }
 
-    session_start();
     $img = $_FILES['image']['tmp_name'];
     $image = addslashes(file_get_contents($img));
     $record_id = $_POST['record_id'];
+    
+    $query= mysqli_query($mysqli,"SELECT * FROM `radiology_record` Where `record_id` = '$record_id'");
+    
+    $testResult = mysqli_fetch_all($query,MYSQLI_ASSOC);
+
+    if (count($testResult) == 0) {
+        echo "invalid record id";
+        header( "refresh:3; url=/image.php" );
+        exit;
+    
+    }
     
     $source = imagecreatefromjpeg($img);
     
@@ -65,7 +77,7 @@
     ob_end_clean();
     $normalSize = addslashes($new_image_string2);
     
-    $mysqli = new mysqli("localhost", "root", "goodtogo", "radiology");
+    
     
     //Generate a new ID based on the previous max ID.
     $result = mysqli_query($mysqli,"SELECT MAX(`image_id`) FROM pacs_images");
@@ -78,7 +90,7 @@
     }
     
     $insert = mysqli_query($mysqli,"INSERT INTO pacs_images VALUES ('$record_id', '$new_id', '$thumbnail', '$normalSize', '$image')");
-    if ( false===$insert ) {
+    if ( $insert ==false ) {
         printf("error: %s\n", mysqli_error($mysqli));
     } else {
         echo "New Image ID: ".$new_id;

@@ -1,16 +1,22 @@
 <?php
 session_start();
 
-if(!(isset($_SESSION['username']) and !(isset($_SESSION['id']))))
+if(isset($_SESSION['classes']))
 {
-    echo"<script>alert('you're trying to access sensitive information, please login to verify your identity');</script>";
-    header ("url=/index.html");
+    if($_SESSION['classes'] !='a'&&$_SESSION['classes'] !='r')
+    {
+        echo"<script>alert('you do not authorized to access this page');</script>";
+        header ("url=/home.php");
+        exit;
+    
+    }    
 }
-if($_SESSION['classes'] !='a')
+else
 {
-    echo"<script>alert('you do not authorized to access this page');</script>";
-    header ("url=/home.php");
-}      
+    echo $_SESSION['classes'];
+    echo"<script>alert('you re trying to access sensitive information, please login to verify your identity');</script>";
+    header ("location: index.html");
+}
 
 
 $mysqli = new mysqli("localhost", "root", "goodtogo", "radiology");
