@@ -44,7 +44,7 @@
                                     <li class='active'><a href='#'>Analysis of Records</a></li>
                                 </ul>
                            </nav>
-                           <form name="search" method="post" action="analysis_backend.php">
+                           <form name="search" method="post" action="analysis_backend (2).php">
                                
                                <label>Please enter Patient ID</label>
                                <div class="input-control text">
