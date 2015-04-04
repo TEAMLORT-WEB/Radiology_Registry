@@ -63,7 +63,7 @@
                                </div>
                                <div class="input-control radio  default-style">
                                    <label>
-                                       <input type="radio" name="option" value ="by_r"/>
+                                       <input type="option" name="option" value ="by_r"/>
                                        <span class="check"></span>
                                        Relevancy
                                    </label>

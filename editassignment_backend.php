@@ -10,9 +10,13 @@ $submit = @$_POST['submit'];
 $condition = @$_POST['condition'];
 if($submit)
 {
-    if($condition)
+    if($condition=='add')
     {
+        
     
+    }
+    else if($condition =='edit')
+    {
     }
 }
 

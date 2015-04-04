@@ -303,7 +303,7 @@
                         icon: '<span class="icon-plus-2"></span>',
                         title: 'Draggable window',
                         width: 'auto',
-                        padding: 10,
+                        padding: 40,
                         content: 'This Window is draggable by caption.',
                         onShow: function () {
                             var strVar="";

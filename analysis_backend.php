@@ -2,6 +2,18 @@
     
 session_start();
 
+
+
+
+
+
+
+
+
+
+
+
+
 $patient_id = $_POST['p_id'];
 $test_type = $_POST['test_type'];
         
@@ -71,507 +83,31 @@ $result = mysqli_query($mysqli,"SELECT patient_id, first_name, last_name, count
                                       test_date IS NULL");
 
 $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
+echo "";
+$category_array = array();
+$data_array = array();
+
 for($i = 0; $i < count($rows); $i++){
+    foreach($rows[$i] as $key => $value){
+        echo $key." ";
+        array_push($category_array,$key);
+    }
+    echo "<br>";
+    break;
+}
+
+
+for($i = 0; $i < count($rows); $i++){
+    $temp_array = array();
     foreach($rows[$i] as $key => $value){
         echo $value." ";
+        
+        array_push($temp_array,$value);
     }
+    array_push($data_array,$temp_array);
     echo "<br>";
 }
-
-echo "<br>Number of images for each test type<br>";
-$result = mysqli_query($mysqli,"SELECT test_type, count
-                                FROM TEMPTABLE
-                                WHERE patient_id IS NULL AND
-                                      test_type IS NOT NULL AND
-                                      test_date IS NULL");
-
-$rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
-for($i = 0; $i < count($rows); $i++){
-    foreach($rows[$i] as $key => $value){
-        echo $value." ";
-    }
-    echo "<br>";
-}
-
-echo "<br>Number of images for each patient for each test type<br>";
-$result = mysqli_query($mysqli,"SELECT patient_id, first_name, last_name, test_type, count 
-                                FROM TEMPTABLE
-                                WHERE patient_id IS NOT NULL AND
-                                      test_type IS NOT NULL AND
-                                      test_date IS NULL");
-
-$rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
-for($i = 0; $i < count($rows); $i++){
-    foreach($rows[$i] as $key => $value){
-        echo  $value." ";
-    }
-    echo "<br>";
-}
-
-echo "<br>Total number of images<br>";
-$result = mysqli_query($mysqli,"SELECT count 
-                                FROM TEMPTABLE
-                                WHERE patient_id IS NULL AND
-                                      test_type IS NULL AND
-                                      test_date IS NULL");
-
-$rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
-for($i = 0; $i < count($rows); $i++){
-    foreach($rows[$i] as $key => $value){
-        echo  $value." ";
-    }
-    echo "<br>";
-}
-
-//-----Weekly-----
-$timestamp = strtotime($start_date);
-$end_timestamp = strtotime($end_date);
-
-//Determine first monday after start_date
-for($i = 0; $i < 7; $i++){
-    if(date('D', $timestamp) === 'Mon'){
-        break;
-    } else {
-        $timestamp = strtotime('+1 day', $timestamp);
-    }
-}
-
-$first_day_timestamp = $timestamp; //Store initial value for next three queries.
-
-$next_timestamp = strtotime('+1 week', $timestamp);
-
-echo "<br>Number of images for each patient weekly<br>";
-while($timestamp < $end_timestamp){
-    $timestamp_date = date('Y-m-d', $timestamp);
-    $next_timestamp_date = date('Y-m-d', $next_timestamp);
-    ob_start();
-    echo "Week of $timestamp_date<br>";
-    $result = mysqli_query($mysqli,"SELECT patient_id, first_name, last_name, SUM(count)
-                                FROM TEMPTABLE
-                                WHERE patient_id IS NOT NULL AND
-                                      test_type IS NULL AND
-                                      test_date BETWEEN '$timestamp_date' AND '$next_timestamp_date'
-                                GROUP BY patient_id, first_name, last_name");
-    $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
-    for($i = 0; $i < count($rows); $i++){
-        foreach($rows[$i] as $key => $value){
-            echo  $value." ";
-        }
-        echo "<br>";
-    }
-    echo "<hr>";
-    if(count($rows) > 0){
-        ob_end_flush();
-    } else {
-        ob_end_clean();
-    }
-    
-    $timestamp = $next_timestamp;
-    $next_timestamp = strtotime('+1 week', $timestamp);
-}
-
-$timestamp = $first_day_timestamp;
-
-$next_timestamp = strtotime('+1 week', $timestamp);
-
-echo "<br>Number of images for each test type weekly<br>";
-while($timestamp < $end_timestamp){
-    $timestamp_date = date('Y-m-d', $timestamp);
-    $next_timestamp_date = date('Y-m-d', $next_timestamp);
-    ob_start();
-    echo "Week of $timestamp_date<br>";
-    $result = mysqli_query($mysqli,"SELECT test_type, SUM(count)
-                                FROM TEMPTABLE
-                                WHERE patient_id IS NULL AND
-                                      test_type IS NOT NULL AND
-                                      test_date BETWEEN '$timestamp_date' AND '$next_timestamp_date'
-                                GROUP BY test_type");
-    $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
-    for($i = 0; $i < count($rows); $i++){
-        foreach($rows[$i] as $key => $value){
-            echo  $value." ";
-        }
-        echo "<br>";
-    }
-    echo "<hr>";
-    if(count($rows) > 0){
-        ob_end_flush();
-    } else {
-        ob_end_clean();
-    }
-    
-    $timestamp = $next_timestamp;
-    $next_timestamp = strtotime('+1 week', $timestamp);
-}
-
-$timestamp = $first_day_timestamp;
-
-$next_timestamp = strtotime('+1 week', $timestamp);
-
-echo "<br>Number of images for each patient for each test type weekly<br>";
-while($timestamp < $end_timestamp){
-    $timestamp_date = date('Y-m-d', $timestamp);
-    $next_timestamp_date = date('Y-m-d', $next_timestamp);
-    ob_start();
-    echo "Week of $timestamp_date<br>";
-    $result = mysqli_query($mysqli,"SELECT patient_id, first_name, last_name, test_type, SUM(count) 
-                                FROM TEMPTABLE
-                                WHERE patient_id IS NOT NULL AND
-                                      test_type IS NOT NULL AND
-                                      test_date BETWEEN '$timestamp_date' AND '$next_timestamp_date'
-                                GROUP BY patient_id, first_name, last_name, test_type");
-    $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
-    for($i = 0; $i < count($rows); $i++){
-        foreach($rows[$i] as $key => $value){
-            echo  $value." ";
-        }
-        echo "<br>";
-    }
-    echo "<hr>";
-    if(count($rows) > 0){
-        ob_end_flush();
-    } else {
-        ob_end_clean();
-    }
-    
-    $timestamp = $next_timestamp;
-    $next_timestamp = strtotime('+1 week', $timestamp);
-}
-
-$timestamp = $first_day_timestamp;
-
-$next_timestamp = strtotime('+1 week', $timestamp);
-
-echo "<br>Total number of images weekly<br>";
-while($timestamp < $end_timestamp){
-    $timestamp_date = date('Y-m-d', $timestamp);
-    $next_timestamp_date = date('Y-m-d', $next_timestamp);
-    ob_start();
-    echo "Week of $timestamp_date<br>";
-    $result = mysqli_query($mysqli,"SELECT SUM(count)
-                                FROM TEMPTABLE
-                                WHERE patient_id IS NULL AND
-                                      test_type IS NULL AND
-                                      test_date BETWEEN '$timestamp_date' AND '$next_timestamp_date'");
-    $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
-    for($i = 0; $i < count($rows); $i++){
-        foreach($rows[$i] as $key => $value){
-            echo  $value." ";
-        }
-        echo "<br>";
-    }
-    echo "<hr>";
-    if($rows[0]['SUM(count)'] != NULL){
-        ob_end_flush();
-    } else {
-        ob_end_clean();
-    }
-    
-    $timestamp = $next_timestamp;
-    $next_timestamp = strtotime('+1 week', $timestamp);
-}
-
-//-----Monthly-----
-$timestamp = strtotime($start_date);
-$end_timestamp = strtotime($end_date);
-
-//Determine first day of the month.
-for($i = 0; $i < 31; $i++){
-    if(date('j', $timestamp) === '1'){
-        break;
-    } else {
-        $timestamp = strtotime('+1 day', $timestamp);
-    }
-}
-
-$first_day_timestamp = $timestamp; //Store initial value for next three queries.
-
-$next_timestamp = strtotime('+1 month', $timestamp);
-
-echo "<br>Number of images for each patient monthly<br>";
-while($timestamp < $end_timestamp){
-    $timestamp_date = date('Y-m-d', $timestamp);
-    $next_timestamp_date = date('Y-m-d', $next_timestamp);
-    ob_start();
-    echo "Month of $timestamp_date<br>";
-    $result = mysqli_query($mysqli,"SELECT patient_id, first_name, last_name, SUM(count)
-                                FROM TEMPTABLE
-                                WHERE patient_id IS NOT NULL AND
-                                      test_type IS NULL AND
-                                      test_date BETWEEN '$timestamp_date' AND '$next_timestamp_date'
-                                GROUP BY patient_id, first_name, last_name");
-    $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
-    for($i = 0; $i < count($rows); $i++){
-        foreach($rows[$i] as $key => $value){
-            echo  $value." ";
-        }
-        echo "<br>";
-    }
-    echo "<hr>";
-    if(count($rows) > 0){
-        ob_end_flush();
-    } else {
-        ob_end_clean();
-    }
-    
-    $timestamp = $next_timestamp;
-    $next_timestamp = strtotime('+1 month', $timestamp);
-}
-
-$timestamp = $first_day_timestamp;
-
-$next_timestamp = strtotime('+1 month', $timestamp);
-
-echo "<br>Number of images for each test type monthly<br>";
-while($timestamp < $end_timestamp){
-    $timestamp_date = date('Y-m-d', $timestamp);
-    $next_timestamp_date = date('Y-m-d', $next_timestamp);
-    ob_start();
-    echo "Month of $timestamp_date<br>";
-    $result = mysqli_query($mysqli,"SELECT test_type, SUM(count)
-                                FROM TEMPTABLE
-                                WHERE patient_id IS NULL AND
-                                      test_type IS NOT NULL AND
-                                      test_date BETWEEN '$timestamp_date' AND '$next_timestamp_date'
-                                GROUP BY test_type");
-    $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
-    for($i = 0; $i < count($rows); $i++){
-        foreach($rows[$i] as $key => $value){
-            echo  $value." ";
-        }
-        echo "<br>";
-    }
-    echo "<hr>";
-    if(count($rows) > 0){
-        ob_end_flush();
-    } else {
-        ob_end_clean();
-    }
-    
-    $timestamp = $next_timestamp;
-    $next_timestamp = strtotime('+1 month', $timestamp);
-}
-
-$timestamp = $first_day_timestamp;
-
-$next_timestamp = strtotime('+1 month', $timestamp);
-
-echo "<br>Number of images for each patient for each test type monthly<br>";
-while($timestamp < $end_timestamp){
-    $timestamp_date = date('Y-m-d', $timestamp);
-    $next_timestamp_date = date('Y-m-d', $next_timestamp);
-    ob_start();
-    echo "Month of $timestamp_date<br>";
-    $result = mysqli_query($mysqli,"SELECT patient_id, first_name, last_name, test_type, SUM(count)
-                                FROM TEMPTABLE
-                                WHERE patient_id IS NOT NULL AND
-                                      test_type IS NOT NULL AND
-                                      test_date BETWEEN '$timestamp_date' AND '$next_timestamp_date'
-                                GROUP BY patient_id, first_name, last_name, test_type");
-    $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
-    for($i = 0; $i < count($rows); $i++){
-        foreach($rows[$i] as $key => $value){
-            echo  $value." ";
-        }
-        echo "<br>";
-    }
-    echo "<hr>";
-    if(count($rows) > 0){
-        ob_end_flush();
-    } else {
-        ob_end_clean();
-    }
-    
-    $timestamp = $next_timestamp;
-    $next_timestamp = strtotime('+1 month', $timestamp);
-}
-
-$timestamp = $first_day_timestamp;
-
-$next_timestamp = strtotime('+1 month', $timestamp);
-
-echo "<br>Total number of images monthly<br>";
-while($timestamp < $end_timestamp){
-    $timestamp_date = date('Y-m-d', $timestamp);
-    $next_timestamp_date = date('Y-m-d', $next_timestamp);
-    ob_start();
-    echo "Month of $timestamp_date<br>";
-    $result = mysqli_query($mysqli,"SELECT SUM(count)
-                                FROM TEMPTABLE
-                                WHERE patient_id IS NULL AND
-                                      test_type IS NULL AND
-                                      test_date BETWEEN '$timestamp_date' AND '$next_timestamp_date'");
-    $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
-    for($i = 0; $i < count($rows); $i++){
-        foreach($rows[$i] as $key => $value){
-            echo  $value." ";
-        }
-        echo "<br>";
-    }
-    echo "<hr>";
-    if($rows[0]['SUM(count)'] != NULL){
-        ob_end_flush();
-    } else {
-        ob_end_clean();
-    }
-    
-    $timestamp = $next_timestamp;
-    $next_timestamp = strtotime('+1 month', $timestamp);
-}
-
-//-----Yearly-----
-$timestamp = strtotime($start_date);
-$end_timestamp = strtotime($end_date);
-
-//Determine first day of the year.
-for($i = 0; $i < 365; $i++){
-    if(date('z', $timestamp) === '0'){
-        break;
-    } else {
-        $timestamp = strtotime('-1 day', $timestamp);
-    }
-}
-
-$first_day_timestamp = $timestamp; //Store initial value for next three queries.
-
-$next_timestamp = strtotime('+1 year', $timestamp);
-
-echo "<br>Number of images for each patient yearly<br>";
-while($timestamp < $end_timestamp){
-    $timestamp_date = date('Y-m-d', $timestamp);
-    $next_timestamp_date = date('Y-m-d', $next_timestamp);
-    ob_start();
-    echo "Year of $timestamp_date<br>";
-    $result = mysqli_query($mysqli,"SELECT patient_id, first_name, last_name, SUM(count)
-                                FROM TEMPTABLE
-                                WHERE patient_id IS NOT NULL AND
-                                      test_type IS NULL AND
-                                      test_date BETWEEN '$timestamp_date' AND '$next_timestamp_date'
-                                GROUP BY patient_id, first_name, last_name");
-    $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
-    for($i = 0; $i < count($rows); $i++){
-        foreach($rows[$i] as $key => $value){
-            echo  $value." ";
-        }
-        echo "<br>";
-    }
-    echo "<hr>";
-    if(count($rows) > 0){
-        ob_end_flush();
-    } else {
-        ob_end_clean();
-    }
-    
-    $timestamp = $next_timestamp;
-    $next_timestamp = strtotime('+1 year', $timestamp);
-}
-
-$timestamp = $first_day_timestamp;
-
-$next_timestamp = strtotime('+1 year', $timestamp);
-
-echo "<br>Number of images for each test type yearly<br>";
-while($timestamp < $end_timestamp){
-    $timestamp_date = date('Y-m-d', $timestamp);
-    $next_timestamp_date = date('Y-m-d', $next_timestamp);
-    ob_start();
-    echo "Year of $timestamp_date<br>";
-    $result = mysqli_query($mysqli,"SELECT test_type, SUM(count)
-                                FROM TEMPTABLE
-                                WHERE patient_id IS NULL AND
-                                      test_type IS NOT NULL AND
-                                      test_date BETWEEN '$timestamp_date' AND '$next_timestamp_date'
-                                GROUP BY test_type");
-    $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
-    for($i = 0; $i < count($rows); $i++){
-        foreach($rows[$i] as $key => $value){
-            echo  $value." ";
-        }
-        echo "<br>";
-    }
-    echo "<hr>";
-    if(count($rows) > 0){
-        ob_end_flush();
-    } else {
-        ob_end_clean();
-    }
-    
-    $timestamp = $next_timestamp;
-    $next_timestamp = strtotime('+1 year', $timestamp);
-}
-
-$timestamp = $first_day_timestamp;
-
-$next_timestamp = strtotime('+1 year', $timestamp);
-
-echo "<br>Number of images for each patient for each test type yearly<br>";
-while($timestamp < $end_timestamp){
-    $timestamp_date = date('Y-m-d', $timestamp);
-    $next_timestamp_date = date('Y-m-d', $next_timestamp);
-    ob_start();
-    echo "Year of $timestamp_date<br>";
-    $result = mysqli_query($mysqli,"SELECT patient_id, first_name, last_name, test_type, SUM(count) 
-                                FROM TEMPTABLE
-                                WHERE patient_id IS NOT NULL AND
-                                      test_type IS NOT NULL AND
-                                      test_date BETWEEN '$timestamp_date' AND '$next_timestamp_date'
-                                GROUP BY patient_id, first_name, last_name, test_type");
-    $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
-    for($i = 0; $i < count($rows); $i++){
-        foreach($rows[$i] as $key => $value){
-            echo  $value." ";
-        }
-        echo "<br>";
-    }
-    echo "<hr>";
-    if(count($rows) > 0){
-        ob_end_flush();
-    } else {
-        ob_end_clean();
-    }
-    
-    $timestamp = $next_timestamp;
-    $next_timestamp = strtotime('+1 year', $timestamp);
-}
-
-$timestamp = $first_day_timestamp;
-
-$next_timestamp = strtotime('+1 month', $timestamp);
-
-echo "<br>Total number of images yearly<br>";
-while($timestamp < $end_timestamp){
-    $timestamp_date = date('Y-m-d', $timestamp);
-    $next_timestamp_date = date('Y-m-d', $next_timestamp);
-    ob_start();
-    echo "Year of $timestamp_date<br>";
-    $result = mysqli_query($mysqli,"SELECT SUM(count)
-                                FROM TEMPTABLE
-                                WHERE patient_id IS NULL AND
-                                      test_type IS NULL AND
-                                      test_date BETWEEN '$timestamp_date' AND '$next_timestamp_date'");
-    $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
-    for($i = 0; $i < count($rows); $i++){
-        foreach($rows[$i] as $key => $value){
-            echo  $value." ";
-        }
-        echo "<br>";
-    }
-    echo "<hr>";
-    if($rows[0]['SUM(count)'] != NULL){
-        ob_end_flush();
-    } else {
-        ob_end_clean();
-    }
-    
-    $timestamp = $next_timestamp;
-    $next_timestamp = strtotime('+1 year', $timestamp);
-}
-
-return false;
-
-echo "<br>";
-
-//echo mysqli_error($mysqli);?>
+                                                      ?>
 
 <html>
     <head>
@@ -588,10 +124,168 @@ echo "<br>";
     
         
     </head>
-    <body class="metro">
-
-        
     
-    ?>
+    <script>
+        
+         function displaywindow(head_content,data_content) {
+            $.Dialog
+            ({
+                flat: false,
+                shadow: true,
+                draggable: true,
+                title: 'Test window',
+                content: '',
+                resizable: true,
+                modal: false,
+                width: '50%',
+                onShow: function(_dialog)
+                {
+                    var content = '<table class="table striped bordered">';
+                    
+                    
+                    content += "<thead>";
+                    content += "<tr>";
+                    for(i =0; i<head_content.length; i++)
+                    {
+                        content+="<th class='text-left'>";
+                        content+=head_content[i];
+                        content+="</th>";
+                    }
+                    content += "<\/tr>";
+                    content += "<\/thead>";
+                    
+
+                    
+                    
+                    content += "<tbody >";
+                    
+                    for(i =0; i<data_content.length; i++)
+                    {
+                        content += "<tr>";
+                        for(j =0; j<data_content[i].length; j++)
+                        {
+                            content+="<td>";
+                            content+=data_content[i][j];
+                            content+="</td>";
+                        }
+                        content += "<\/tr>";
+                    }
+                    
+                    content += "<\/tbody>";
+                    content +='</table>';
+                    $.Dialog.content(content);
+                    $.Metro.initInputs();
+                }
+
+
+            });
+        }
+        
+        var categories = <?php echo json_encode($category_array); ?>; 
+        var data = <?php echo json_encode($data_array); ?>; 
+        displaywindow(categories,data);
+
+    </script>
+
+    
+    <script>
+    
+        function createwindow(content) {
+        
+            if (document.getElementById('by_p').checked) {
+        
+                if (document.getElementById('by_y').checked) {
+                    
+                    displaywindow(content);
+        
+                } else if (document.getElementById('by_m').checked) {
+                    
+                    displaywindow(content);
+        
+                } else if (document.getElementById('by_w').checked) {
+                    
+                    displaywindow(content);
+        
+                }
+              
+            } else if (document.getElementById('by_t').checked) {
+        
+                if (document.getElementById('by_y').checked) {
+                    
+                    displaywindow(content);
+        
+                } else if (document.getElementById('by_m').checked) {
+                
+                    displaywindow(content);
+        
+                } else if (document.getElementById('by_w').checked) {
+                    
+                    displaywindow(content);
+        
+                }
+        
+        
+                
+            } else {
+        
+                if (document.getElementById('by_y').checked) {
+                    
+                    displaywindow(content);
+        
+                } else if (document.getElementById('by_m').checked) {
+                
+                    displaywindow(content);
+        
+                } else if (document.getElementById('by_w').checked) {
+                    
+                    displaywindow(content);
+        
+                }
+        
+            }
+        
+        }
+ 
+    </script>
+    <body class="metro">
+    
+        <div id="by_p" class="input-control switch margin10" data-role="input-control">
+            <label>
+                By Patient
+                <input type="checkbox" checked/>
+                <span class="check"></span>
+            </label>
+        </div>
+
+        <div id="by_t" class="input-control switch margin10" data-role="input-control">
+            <label>
+                By Test Type
+                <input type="checkbox"/>
+                <span class="check"></span>
+            </label>
+        </div>
+        <div>
+            <div id="by_w" class="input-control radio margin10" data-role="input-control">
+                <label>
+                    By Week
+                    <input type="radio" name="r1" checked />
+                    <span class="check"></span>
+                </label>
+            </div>
+            <div id="by_m" class="input-control radio margin10" data-role="input-control">
+                <label>
+                    By Month
+                    <input type="radio" name="r1" />
+                    <span class="check"></span>
+                </label>
+            </div>
+            <div id="by_y" class="input-control radio margin10" data-role="input-control">
+                <label>
+                    By Year
+                    <input type="radio" name="r1" />
+                    <span class="check"></span>
+                </label>
+            </div>
+        </div>
     </body>
 </html>
