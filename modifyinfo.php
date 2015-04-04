@@ -170,11 +170,19 @@
 
 
                        <?php 
-                            if(!(isset($_SESSION['username']) and isset($_SESSION['id'])))
+                            if(isset($_SESSION['class']))
                             {
-                                echo"<script>alert('you're trying to access sensitive information, please login to verify your identity');</script>";
-                                header ("url=/index.html");
-                                }
+                                
+                            }
+                            else
+                            {
+                                echo"<script>alert('you re trying to access sensitive information, please login to verify your identity');</script>";
+                                header ("location: index.html");
+                            }
+                            
+                            
+                            
+                            
                        
                             if (isset($_SESSION['username']) and isset($_SESSION['id']))
                             {

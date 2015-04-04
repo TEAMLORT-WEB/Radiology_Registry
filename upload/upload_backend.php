@@ -2,8 +2,21 @@
 
 session_start();
 
-
-
+if(isset($_SESSION['class']))
+{
+    if($_SESSION['class'] !='a'&&$_SESSION['class'] !='r')
+    {
+        echo"<script>alert('you do not authorized to access this page');</script>";
+        header ("url=/home.php");
+        exit;
+    
+    }    
+}
+else
+{
+    echo"<script>alert('you re trying to access sensitive information, please login to verify your identity');</script>";
+    header ("location: index.html");
+}    
 $doctor_id = @$_POST['doctor_id'];
 $patient_id = @$_POST['patient_id'];
 $radiologist_id = $_SESSION['id'];

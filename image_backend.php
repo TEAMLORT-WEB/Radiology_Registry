@@ -2,17 +2,21 @@
 	<body>
     <?php
     
-     if(!(isset($_SESSION['username']) and isset($_SESSION['id'])))
+     if(isset($_SESSION['class']))
      {
-        echo"<script>alert('you're trying to access sensitive information, please login to verify your identity');</script>";
-        header ("url=/index.html");
-         }
-     if($_SESSION['class'] !='r')
+         if($_SESSION['class'] !='a'&&$_SESSION['class'] !='r')
+         {
+             echo"<script>alert('you do not authorized to access this page');</script>";
+             header ("url=/home.php");
+             exit;
+         
+         }    
+     }
+     else
      {
-         echo"<script>alert('you do not authorized to access this page');</script>";
-         header ("url=/home.php");
-     }          
-
+         echo"<script>alert('you re trying to access sensitive information, please login to verify your identity');</script>";
+         header ("location: index.html");
+     }
 
     session_start();
     $img = $_FILES['image']['tmp_name'];

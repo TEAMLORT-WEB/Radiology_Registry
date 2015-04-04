@@ -1,6 +1,16 @@
 <?php   
 
 session_start();
+
+    if(isset($_SESSION['class']))
+    {
+    }
+    else
+    {
+        echo"<script>alert('you re trying to access sensitive information, please login to verify your identity');</script>";
+        header ("location: index.html");
+        exit;
+    }
     
 	if(isset($_POST['search_term'])){        	
 		

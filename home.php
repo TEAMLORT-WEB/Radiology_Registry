@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-if(!(isset($_SESSION['username']) and isset($_SESSION['id'])))
+if(!(isset($_SESSION['username']) and !(isset($_SESSION['id']))))
 {
     echo"<script>alert('you're trying to access sensitive information, please login to verify your identity');</script>";
     header ("url=/index.html");
@@ -60,7 +60,7 @@ if(!(isset($_SESSION['username']) and isset($_SESSION['id'])))
                                             <div class="tile-status"><span class ="name">Upload Pacs Image</span></div>
                                           </div>';
                                 }
-                                if($_SESSION['class'] == 'd' or $_SESSION['class']=='a')
+                                if($_SESSION['class'] == 'r' or $_SESSION['class']=='a')
                                 {
                                     echo '<div class="tile">
                                             <div class ="tile-content icon bg-darkGreen fg-white">
