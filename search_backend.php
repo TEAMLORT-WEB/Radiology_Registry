@@ -278,44 +278,48 @@ session_start();
                                     <thead>
                                     <tr>
                                         <?php
-                                            
-                                        for ($i = 0; $i < count($union_result); $i++){
-                                            //Print the columns
-                            
-                                            foreach ($union_result[$i] as $key => $value) {
-                                                echo "<th>".$key."</th>";
+                                        if($union_result!=null)
+                                        {
+                                            for ($i = 0; $i < count($union_result); $i++){
+                                                //Print the columns
                                                 
+                                                foreach ($union_result[$i] as $key => $value) {
+                                                    echo "<th>".$key."</th>";
+                                                    
+                                                }
+                                                echo "<th>images</th>";
+                                                break;
                                             }
-                                            echo "<th>images</th>";
-                                            break;
-                                        }
+                                        }                                     
                                         ?>
                                     </tr>
                                     </thead>
                             
                                     <tbody>
                                         <?php 
-                                        for ($i = 0; $i < count($union_result); $i++){
-                                            //Print the data
-                                            echo"<tr>";
-                                            foreach ($union_result[$i] as $key => $value) {
-                                                echo "<td>".$value."</td>";
-                                                //Print associated pacs_images
-                                                $result = mysqli_query($mysqli,"SELECT record_id, image_id, thumbnail,regular_size
-                                                             FROM pacs_images
-                                                             WHERE record_id = ".$union_result[$i]['record_id']."");
-                                                $image_result = mysqli_fetch_all($result,MYSQLI_ASSOC);
-                                                
-                                            }
-                                            if(count($image_result)>0)
-                                            {
-                                                for ($j = 0; $j < count($image_result); $j++){
-                                                    //echo "<td>"."Image ID: ".."</td>";
-                                                    $variable = base64_encode($image_result[$j]['regular_size']);
-                                                    $new = "&apos;".$variable."&apos;";
-                                                    echo "<td>";
+                                        if($union_result!=null)
+                                        {
+                                            for ($i = 0; $i < count($union_result); $i++){
+                                                //Print the data
+                                                echo"<tr>";
+                                                foreach ($union_result[$i] as $key => $value) {
+                                                    echo "<td>".$value."</td>";
+                                                    //Print associated pacs_images
+                                                    $result = mysqli_query($mysqli,"SELECT record_id, image_id, thumbnail,regular_size
+                                                                 FROM pacs_images
+                                                                 WHERE record_id = ".$union_result[$i]['record_id']."");
+                                                    $image_result = mysqli_fetch_all($result,MYSQLI_ASSOC);
+                                                    
+                                                }
+                                                if(count($image_result)>0)
+                                                {
+                                                    for ($j = 0; $j < count($image_result); $j++){
+                                                        //echo "<td>"."Image ID: ".."</td>";
+                                                        $variable = base64_encode($image_result[$j]['regular_size']);
+                                                        $new = "&apos;".$variable."&apos;";
+                                                        echo "<td>";
                                                         echo "<div class=\"tile\">\n"; 
-                                                        echo "    <div onclick='display(".$image_result[$j]['image_id'].",".$new.");' class=\"tile-content image\">\n"; 
+                                                        echo "    <div onclick='display(".$image_result[$j]['image_id'].",".$new.");' class=\"tile-content image\">\n";
                                                         echo '    <img src="data:image/jpeg;base64,'.base64_encode($image_result[$j]['thumbnail'] ).'"/>'; 
                                                         echo "    </div>\n"; 
                                                         echo "    <div class=\"brand\">\n"; 
@@ -323,20 +327,20 @@ session_start();
                                                         echo "        <span class=\"badge bg-blue\">".$image_result[$j]['image_id']."</span>\n"; 
                                                         echo "    </div>\n"; 
                                                         echo "</div>\n";
-
-                                                    echo "</td>";
+                                                        
+                                                        echo "</td>";
+                                                        
+                                                        
+                                                        
+                                                        //http://www.andrewdavidson.com/convert-html-to-php/
+                                                        //'<img src="data:image/jpeg;base64,'.base64_encode($image_result[$j]['thumbnail'] ).'"/>'
+                                                    }
                                                     
-                                                    
-
-                                                    //http://www.andrewdavidson.com/convert-html-to-php/
-                                                    //'<img src="data:image/jpeg;base64,'.base64_encode($image_result[$j]['thumbnail'] ).'"/>'
                                                 }
-                                            
-                                            }
-                                            echo"</tr>";
+                                                echo"</tr>";
+                                            }       
                                         }
-                                        
-                                        ?>
+                                       ?>
                                     </tbody>
                             
                                     <tfoot></tfoot>
