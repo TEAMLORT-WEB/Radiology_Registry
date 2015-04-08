@@ -208,7 +208,7 @@ session_start();
         if($union_result == null)
         {
             echo"Sorry, no result showes up. Returning you to Search page";
-            header("Location:search.php");
+            header("refresh:3;Location:search.php");
             exit;
             
         }
