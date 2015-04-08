@@ -49,7 +49,7 @@
                                <label>Order By:</label>
                                <div class="input-control radio default-style">
                                    <label>
-                                       <input name="option" type="radio" value ="by_t"/>
+                                       <input name="option" type="radio" value ="by_t"/ checked>
                                        <span class="check"></span>
                                        Most Recent
                                    </label>
