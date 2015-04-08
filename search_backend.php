@@ -203,15 +203,13 @@ session_start();
             header( "refresh:3; url=/index.html" ); 
             
         }
-            
-        $union_result = mysqli_fetch_all($result,MYSQLI_ASSOC)  ; //variable name is union result because of unnecessary processing that used to happen here.
-        if($union_result == null)
+        if($result==null)    
         {
             echo"Sorry, no result showes up. Returning you to Search page";
             header("refresh:3;url=/search.php");
             exit;
-            
         }
+        $union_result = mysqli_fetch_all($result,MYSQLI_ASSOC)  ; //variable name is union result because of unnecessary processing that used to happen here.
         
 	}	
 
