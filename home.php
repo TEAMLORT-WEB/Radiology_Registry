@@ -10,7 +10,9 @@ session_start();
        <link rel="stylesheet" href="metro/css/iconFont.min.css">
        <link rel="stylesheet" href="metro/css/metro-bootstrap-responsive.css">
        <script src="metro/jquery/jquery.min.js"></script>
+       <script src="metro/js/metro-scroll.js"></script>
        <script src="metro/jquery/jquery.widget.min.js"></script>
+       <script src="metro/jquery/jquery.mousewheel.js"></script>                        
        <script src="metro/min/metro.min.js"></script>
        <script src="metro/min/load-metro.js"></script>
        <script type="text/javascript">
@@ -20,13 +22,15 @@ session_start();
                         flat: false,
                         shadow: true,
                         draggable: true,
+                        resizable:true,
                         title: 'User Manual',
-                        width:'50%',
-                        height:'50%',
+                        width:1300,
+                        height:250,
                         content: '',
                         onShow: function(_dialog){
                            var strVar="";
-                                strVar += "<p style='font-size:100%'>";
+                                strVar += "<div id='scrollbox1' data-role='scrollbox1' data-scroll='vertical'>";
+                                strVar += "<p style='font-size:85%'>";
                                 strVar += "391 User Documentation for Sam Bao, Elvis Lo and Liwen Chen";
                                 strVar += '<br>';
                                 strVar += "Installation Instructions:";
@@ -110,16 +114,24 @@ session_start();
                                 strVar += '<br>';
                                 strVar += "	Able to change all personal information";
                                 strVar += "</p>";
-                                
+                                strVar += "</div>";
+
 
        
                            $.Dialog.content(strVar);
-       
+                           $.Metro.initInputs();
                        }
                         
                 });
             }    
+            $(function(){
+                $("#scrollbox1").scrollbar({
+                    height: 355,
+                    axis: 'y'
+                });
+            });
        </script>
+
    </head>
    <body class="metro">
        <div class="grid">
