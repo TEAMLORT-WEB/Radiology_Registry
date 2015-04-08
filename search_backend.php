@@ -205,6 +205,13 @@ session_start();
         }
             
         $union_result = mysqli_fetch_all($result,MYSQLI_ASSOC)  ; //variable name is union result because of unnecessary processing that used to happen here.
+        if($union_result == null)
+        {
+            echo"Sorry, no result showes up. Returning you to Search page";
+            header("Location:search.php");
+            exit;
+            
+        }
         
 	}	
 
