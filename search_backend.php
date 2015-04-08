@@ -47,7 +47,8 @@ session_start();
         
         //For class: patient = 0, doctor = 1, radiologist = 2, admin = 3
         
-        if ($_SESSION['classes'] == 'a') {
+        if ($_SESSION['classes'] == 'a') 
+        {
         //admin can search all records
             $query = "SELECT record_id, patient_id, first_name, last_name, doctor_id, radiologist_id, test_type, prescribing_date, test_date, 
                                  diagnosis, description
@@ -203,9 +204,10 @@ session_start();
             header( "refresh:3; url=/index.html" ); 
             
         }
+        echo $_SESSION['classes'];
         if($result==null)    
         {
-            echo"Sorry, no result showes up. Returning you to Search page";
+            echo"<br/> Sorry, no result showes up. Returning you to Search page";
             header("refresh:3;url=/search.php");
             exit;
         }
