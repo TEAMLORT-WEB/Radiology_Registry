@@ -204,7 +204,6 @@ session_start();
             header( "refresh:3; url=/index.html" ); 
             
         }
-        echo $_SESSION['classes'];
         if($result==null)    
         {
             echo"<br/> Sorry, no result showes up. Returning you to Search page";
